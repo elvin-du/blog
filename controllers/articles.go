@@ -4,11 +4,11 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type MainController struct {
+type ArticlesController struct {
 	beego.Controller
 }
 
-func (this *MainController) Get() {
+func (this *ArticlesController) Index() {
 	this.Data["Website"] = "oliver.me"
 	this.Data["Email"] = "oliver@gmail.com"
 	this.TplNames = "base.html"
