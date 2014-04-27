@@ -1,19 +1,18 @@
-<div>
-<H1>
-{{.article.title}}
-</H1>
-</div>
-<div>
-{{.article.content}}
-</div>
-<div>
-{{.article.ctime}}
+<div class="panel panel-primary">
+	<div class="panel-heading">
+	   <h3 class="panel-title">{{.article.title}}<small>  {{.article.ctime}}</small></h3>
+	</div>
+	<div class="panel-body">
+	    {{.article.content}}
+	</div>
+
+	<ul class="list-group">
+	{{range $element := .comments}}
+	  <li class="list-group-item">
+		{{$element.comment}}<br>
+		<p class="text-right"><small>{{$element.ctime}}</small></p>
+	  </li>
+	{{end}}
+	</ul>
 </div>
 
-{{range $element := .comments}}
-<div>
-{{$element.comment}}
-From {{$element.ip}}
-At {{$element.ctime}}
-</div>
-{{end}}
