@@ -1,8 +1,19 @@
 <div>
 <H1>
-{{.title}}
+{{.article.title}}
 </H1>
 </div>
 <div>
-{{.content}}
+{{.article.content}}
 </div>
+<div>
+{{.article.ctime}}
+</div>
+
+{{range $element := .comments}}
+<div>
+{{$element.comment}}
+From {{$element.ip}}
+At {{$element.ctime}}
+</div>
+{{end}}
