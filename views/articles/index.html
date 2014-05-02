@@ -1,11 +1,13 @@
-<div class="panel panel-primary">
-	<div class="panel-heading">
-	   <h3 class="panel-title">{{.article.title}}<small>  {{.article.ctime}}</small></h3>
-	</div>
-	<div class="panel-body">
-	    {{.article.content}}
-	</div>
-
+<!-- Begin page content -->
+<div class="container">
+   <div style="padding:20px 0" class="page-header">
+    		<h4><a href="#">{{.article.title}}</a></h4>
+   </div>
+   	<p class="lead">{{.article.content}}</p>
+	<small>Oliver 发表于 	{{.article.a_ctime}}</small>
+	
+	<div style="padding-top:20px; padding-bottom:20px">文章评论</div>
+	
 	<ul class="list-group">
 	{{range $element := .comments}}
 	  <li class="list-group-item">
@@ -15,4 +17,3 @@
 	{{end}}
 	</ul>
 </div>
-

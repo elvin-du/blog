@@ -3,9 +3,14 @@ package models
 import (
 	"strconv"
 
+	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // import your used driver
+)
+
+var (
+	E_NOT_FOUND = errors.New("no article")
 )
 
 func init() {
@@ -27,7 +32,7 @@ func ArticlesModel() *articles {
 
 func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 	o := orm.NewOrm()
-	sqlStr := "SELECT title,content,a.ctime a_ctime,comment,ip,c.ctime FROM articles a ,comments c WHERE a.id = c.article_id AND a.id = " + strconv.Itoa(id)
+	sqlStr := "SELECT title,content,a.ctime a_ctime,comment,ip,c.ctime FROM articles a LEFT JOIN comments c ON a.id = c.article_id WHERE a.id = " + strconv.Itoa(id)
 	var maps []orm.Params
 	_, err := o.Raw(sqlStr).Values(&maps)
 	if nil != err {
@@ -35,6 +40,8 @@ func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 		return nil, err
 	}
 	beego.Debug(maps)
-
+	if len(maps) == 0 {
+		return nil, E_NOT_FOUND
+	}
 	return maps, nil
 }

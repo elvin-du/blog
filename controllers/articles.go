@@ -28,10 +28,15 @@ func (this *ArticlesController) Index() {
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
+
 	if len(as) != 0 {
-		this.Data["article"] = as[0]
-		this.Data["comments"] = as
 		this.Layout = "layout.html"
 		this.TplNames = "articles/index.html"
+		this.Data["article"] = as[0]
+		this.Data["comments"] = as
+		this.LayoutSections = make(map[string]string)
+		this.LayoutSections["CSS"] = ""
+		this.LayoutSections["JS"] = ""
+		this.LayoutSections["Nav"] = "articles/nav.html"
 	}
 }
