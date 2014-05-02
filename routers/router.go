@@ -15,4 +15,10 @@ func init() {
 	//beego.Router("/conmments/:id:int", &MainController{})
 	//beego.Router("/date/:id:int", &MainController{})
 	//beego.Router("/admin", &MainController{})
+
+	//static file
+	//beego.SetStaticPath("/ico/favicon.ico", "/static/ico/favicon.ico")
+	//beego.SetStaticPath("/css", "/static/css")
+	//beego.SetStaticPath("/js", "/static/js")
+	//beego.SetStaticPath("/img", "/static/img")
 }
