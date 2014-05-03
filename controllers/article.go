@@ -7,17 +7,17 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type ArticlesController struct {
+type ArticleController struct {
 	beego.Controller
 }
 
-func (this *ArticlesController) Index() {
+func (this *ArticleController) Index() {
 	this.Layout = "layout.html"
-	this.TplNames = "articles/index.html"
+	this.TplNames = "article/index.html"
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["CSS"] = ""
 	this.LayoutSections["JS"] = ""
-	this.LayoutSections["Nav"] = "articles/nav.html"
+	this.LayoutSections["Nav"] = "article/nav.html"
 
 	idStr := this.Ctx.Input.Param(":id")
 	id, err := strconv.Atoi(idStr)

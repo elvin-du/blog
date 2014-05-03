@@ -5,6 +5,7 @@ import "time"
 const (
 	ARTICLES_MODEL = iota
 	INFO_MODEL
+	ADMIN_MODEL
 )
 
 type Article struct {
