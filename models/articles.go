@@ -45,3 +45,19 @@ func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 	}
 	return maps, nil
 }
+
+func (this *articles) Articles() ([]orm.Params, error) {
+	o := orm.NewOrm()
+	sqlStr := "SELECT * FROM articles"
+	var maps []orm.Params
+	_, err := o.Raw(sqlStr).Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return nil, err
+	}
+	beego.Debug(maps)
+	if len(maps) == 0 {
+		return nil, E_NOT_FOUND
+	}
+	return maps, nil
+}

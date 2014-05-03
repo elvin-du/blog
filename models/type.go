@@ -4,6 +4,7 @@ import "time"
 
 const (
 	ARTICLES_MODEL = iota
+	INFO_MODEL
 )
 
 type Article struct {

@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"blog/models"
+
 	"github.com/astaxie/beego"
 )
 
@@ -11,10 +13,17 @@ type AboutController struct {
 func (this *AboutController) Index() {
 	this.Layout = "layout.html"
 	this.TplNames = "about/index.html"
-	this.Data["Content"] = "This is just a private blog. I am a programmer, love coding."
 	this.LayoutSections = make(map[string]string)
 	//this.LayoutSections["CSS"] = "about/css.html"
-	this.LayoutSections["CSS"] = ""
-	this.LayoutSections["JS"] = ""
 	this.LayoutSections["Nav"] = "about/nav.html"
+
+	about, err := models.InfoModel().InfoFromName("about")
+	if nil != err {
+		beego.Error(err)
+		this.Ctx.Output.SetStatus(C_HTTP_BAD_REQUEST)
+		this.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	this.Data["about"] = about[0]
 }

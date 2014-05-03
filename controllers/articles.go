@@ -12,6 +12,13 @@ type ArticlesController struct {
 }
 
 func (this *ArticlesController) Index() {
+	this.Layout = "layout.html"
+	this.TplNames = "articles/index.html"
+	this.LayoutSections = make(map[string]string)
+	this.LayoutSections["CSS"] = ""
+	this.LayoutSections["JS"] = ""
+	this.LayoutSections["Nav"] = "articles/nav.html"
+
 	idStr := this.Ctx.Input.Param(":id")
 	id, err := strconv.Atoi(idStr)
 	if nil != err {
@@ -30,13 +37,7 @@ func (this *ArticlesController) Index() {
 	}
 
 	if len(as) != 0 {
-		this.Layout = "layout.html"
-		this.TplNames = "articles/index.html"
 		this.Data["article"] = as[0]
 		this.Data["comments"] = as
-		this.LayoutSections = make(map[string]string)
-		this.LayoutSections["CSS"] = ""
-		this.LayoutSections["JS"] = ""
-		this.LayoutSections["Nav"] = "articles/nav.html"
 	}
 }
