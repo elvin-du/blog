@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog/models"
+	"net/http"
 
 	"github.com/astaxie/beego"
 )
@@ -20,7 +21,7 @@ func (this *AboutController) Index() {
 	about, err := models.InfoModel().InfoFromName("about")
 	if nil != err {
 		beego.Error(err)
-		this.Ctx.Output.SetStatus(C_HTTP_BAD_REQUEST)
+		this.Ctx.Output.SetStatus(http.StatusBadRequest)
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}

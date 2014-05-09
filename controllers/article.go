@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"blog/models"
@@ -23,7 +24,7 @@ func (this *ArticleController) Index() {
 	id, err := strconv.Atoi(idStr)
 	if nil != err {
 		beego.Error(err)
-		this.Ctx.Output.SetStatus(C_HTTP_BAD_REQUEST)
+		this.Ctx.Output.SetStatus(http.StatusBadRequest)
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
@@ -31,7 +32,7 @@ func (this *ArticleController) Index() {
 	as, err := models.ArticlesModel().ArticleFromId(id)
 	if nil != err {
 		beego.Error(err)
-		this.Ctx.Output.SetStatus(C_HTTP_INTERNAL_ERROR)
+		this.Ctx.Output.SetStatus(http.StatusInternalServerError)
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}

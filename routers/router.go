@@ -2,6 +2,7 @@ package routers
 
 import (
 	. "blog/controllers"
+	"blog/controllers/admin"
 
 	"github.com/astaxie/beego"
 )
@@ -11,7 +12,8 @@ func init() {
 	beego.Router("/about", &AboutController{}, "GET:Index")
 	beego.Router("/contact", &ContactController{}, "GET:Index")
 	beego.Router("/article/:id:int", &ArticleController{}, "GET:Index")
-	beego.Router("/admin/login", &AdminController{}, "GET:Index;POST:Login")
+	beego.Router("/admin/login", &admin.LoginController{}, "GET:Index;POST:Login")
+	beego.Router("/admin/add", &admin.AddController{}, "GET:Index")
 	//beego.Router("/tags/:id:int", &MainController{})
 	//beego.Router("/conmments/:id:int", &MainController{})
 	//beego.Router("/date/:id:int", &MainController{})

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog/models"
+	"net/http"
 
 	"github.com/astaxie/beego"
 )
@@ -19,7 +20,7 @@ func (this *ContactController) Index() {
 	email, err := models.InfoModel().InfoFromName("email")
 	if nil != err {
 		beego.Error(err)
-		this.Ctx.Output.SetStatus(C_HTTP_BAD_REQUEST)
+		this.Ctx.Output.SetStatus(http.StatusBadRequest)
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
@@ -27,7 +28,7 @@ func (this *ContactController) Index() {
 	nick, err := models.InfoModel().InfoFromName("nick")
 	if nil != err {
 		beego.Error(err)
-		this.Ctx.Output.SetStatus(C_HTTP_BAD_REQUEST)
+		this.Ctx.Output.SetStatus(http.StatusBadRequest)
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
