@@ -1,10 +1,6 @@
 package admin
 
-import (
-	"net/http"
-
-	"github.com/astaxie/beego"
-)
+import "github.com/astaxie/beego"
 
 type AddController struct {
 	beego.Controller
@@ -12,10 +8,10 @@ type AddController struct {
 }
 
 func (this *AddController) Index() {
+	beego.Debug("AddController:index()")
 	err := this.Auth(this.Ctx)
 	if nil != err {
-		this.Redirect("/admin/login", http.StatusOK)
-		return
+		this.Redirect("/admin/login", 302)
 	}
 
 	this.Layout = "layout.html"

@@ -1,105 +1,104 @@
+
 <!DOCTYPE html>
-<html lang="zh-cn">
-  <head>
-  <style>
-	html,
-	body{
-		margin:0;
-		padding:0;
-		height:100%;
-		min-height:400px;
-		min-width:1000px;
-		background-color:gray;
-	}
-	div#header{
-		margin:0;
-		font-size:50px;
-		background-color:red;
-		text-align:center;
-		height:60px;
-	}
-	div#menu{
-		width:20%;
-		height:80%;
-		min-width:200px;
-		min-height:280px;
-		background-color:green;
-		float:left;
-	}
-	div#content{
-		width:80%;
-		height:80%;
-		min-width:700px;
-		min-height:280px;
-		background-color:blue;
-		float:left;
-	}
-	div#footer{
-		height:60px;
-		width:100%;
-		background-color:black;
-		clear:both;
-		color:white;
-		text-align:center;
-		font-size:50px;
-		position:absolute;
-		bottom:0px;
-	}
-	div#menu li{
-		list-style-type:none;
-	}
-	ul{
-		margin:0;
-	}
+<html> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Language" content="zh-cn"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">	
+	<link rel="shortcut icon" href="/static/ico/favicon.ico">
 	
-	div#wrap{
-		height:100%;
-	}
-  </style>
+    <link href="/static/css/sticky-footer.css" rel="stylesheet">
+	<link href="/static/css/base.css" rel="stylesheet">
+	<style type="text/css">
+#login{
+	width:500px;
+	padding-top:100px;
+}
+</style>
 
-<script type="text/javascript">
-	function login(){
-		var n = this.document.login_form.nick.value;
-		if (0 == n.length){
-			alert(n);
-			return false;
-		}
-			
-			
-		
-	};
-	
-	</script>
 </head>
-
 <body>
 <div id="wrap">
-	<div id="header">
-	this is header
+ <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+	    <div class="navbar-header">
+	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </button>
+	        <a class="navbar-brand" href="#">个人博客</a>
+	    </div>
+		
+	    <div class="collapse navbar-collapse">
+	        <ul class="nav navbar-nav">
+	          <li><a href="/">首页</a></li>
+<li><a href="/about">关于</a></li>
+<li><a href="/contact">联系</a></li>
+	        </ul>
+			
+			<form class="navbar-form navbar-left" role="search">
+			    <div class="form-group">
+					<input type="text" class="form-control" placeholder="搜索内容">
+				</div>
+				<button type="submit" class="btn btn-success">搜索</button>
+			</form>
+	    </div>
 	</div>
+</nav>
+	<div class="container">
+<div id="login">
+<form class="form-horizontal" role="form" name="login_form" method="POST" action="/admin/login" onSubmit="return login()">
+  <div class="form-group">
+    <label for="input_name" class="col-sm-2 control-label">用户名</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" name="name" id="input_name" placeholder="用户名">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" name= "passwd" id="inputPassword" placeholder="密码">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> 记住我
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-success">登录</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+</div>
+
+<div id="footer">
+   <div class="container">
+      <p class="text-muted">Oliver © 2014 All rights reserved.</p>
+  	</div>
+</div>
 	
-	<div id="menu">
-	Menu
-	<ul>
-	<li>	<a href="#">tech</a></li>
-	<li>	sckou</li>
-	<li>	linux</li>
-	<li>windows	</li>
+
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<script>
+function login(){
 	
-	</ul>
-	</div>
+	alert(name)
 	
-	<div id="content">
-	<form name="login_form" method="post" action="#" onSubmit="return login();">
-	<input type="text" name="nick">
-	<input type="password" name="passwd">
-	<input type="submit" value="submit">
-	</form>
 	
-	<div id= "footer">
-	this is footer
-	</div>
-</div>	
-	
+};
+</script>
 </body>
 </html>

@@ -1,6 +1,10 @@
 package models
 
-import "github.com/astaxie/beego/orm"
+import (
+	"errors"
+
+	"github.com/astaxie/beego/orm"
+)
 
 func init() {
 	// set default database
@@ -10,3 +14,7 @@ func init() {
 	maxConn := 30
 	orm.RegisterDataBase("default", "mysql", "root:oliver@/blog?charset=utf8", maxIdle, maxConn)
 }
+
+var (
+	E_NOT_FOUND = errors.New("no found")
+)

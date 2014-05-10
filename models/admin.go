@@ -19,6 +19,7 @@ func AdminModel() *admin {
 
 //@RET:cookie
 func (this *admin) Login(name, passwd string) error {
+	beego.Debug(name, passwd)
 	h := md5.New()
 	_, err := h.Write([]byte(passwd))
 	if nil != err {
@@ -29,11 +30,13 @@ func (this *admin) Login(name, passwd string) error {
 
 	o := orm.NewOrm()
 	var maps []orm.Params
-	num, err := o.Raw("select count(1) from blog.admins where name = ? and password = ?", name, passwd).Values(&maps)
+	num, err := o.Raw("select * from blog.admins where name = ? and password = ?", name, passwd).Values(&maps)
 	if nil != err {
 		beego.Error(err)
 		return err
 	}
+	beego.Debug(num)
+	beego.Debug(maps)
 	if num <= 0 {
 		return E_NOT_FOUND
 	}

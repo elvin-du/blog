@@ -2,15 +2,9 @@ package models
 
 import (
 	"strconv"
-
-	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // import your used driver
-)
-
-var (
-	E_NOT_FOUND = errors.New("no article")
 )
 
 type articles byte
