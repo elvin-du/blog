@@ -8,11 +8,10 @@ import (
 )
 
 type MainController struct {
-	beego.Controller
+	baseController
 }
 
 func (this *MainController) Index() {
-	this.Layout = "layout.html"
 	this.TplNames = "main/index.html"
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["Nav"] = "main/nav.html"

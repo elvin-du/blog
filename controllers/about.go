@@ -8,14 +8,12 @@ import (
 )
 
 type AboutController struct {
-	beego.Controller
+	baseController
 }
 
 func (this *AboutController) Index() {
-	this.Layout = "layout.html"
 	this.TplNames = "about/index.html"
 	this.LayoutSections = make(map[string]string)
-	//this.LayoutSections["CSS"] = "about/css.html"
 	this.LayoutSections["Nav"] = "about/nav.html"
 
 	about, err := models.InfoModel().InfoFromName("about")

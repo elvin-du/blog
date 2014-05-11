@@ -1,18 +1,23 @@
 package admin
 
-import ()
+import "blog/models"
 
 type AddController struct {
 	baseController
 }
 
 func (this *AddController) Index() {
-	log.Debug("AddController:index()")
-
-	this.Layout = "layout.html"
 	this.TplNames = "admin/add.html"
-	this.LayoutSections = make(map[string]string)
-	this.LayoutSections["Nav"] = "admin/nav.html"
-	this.LayoutSections["CSS"] = "admin/css.html"
-	this.LayoutSections["JS"] = "admin/js.html"
+}
+
+func (this *AddController) Add() {
+	title := this.GetString("title")
+	content := this.GetString("content")
+
+	err := models.ArticlesModel().Add(title, content)
+	if nil != err {
+		this.Abort("insert blog failed")
+	}
+
+	this.Redirect("/", 302)
 }

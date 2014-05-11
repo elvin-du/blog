@@ -2,6 +2,8 @@ package models
 
 import (
 	"strconv"
+	"time"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // import your used driver
@@ -45,4 +47,14 @@ func (this *articles) Articles() ([]orm.Params, error) {
 		return nil, E_NOT_FOUND
 	}
 	return maps, nil
+}
+
+func (this *articles) Add(title, content string) error {
+	o := orm.NewOrm()
+	_, err := o.Raw("insert articles(title,content, ctime) values(?,?,?)", title, content, time.Now()).Exec()
+	if nil != err {
+		beego.Error(err)
+		return err
+	}
+	return nil
 }

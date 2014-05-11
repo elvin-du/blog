@@ -9,15 +9,12 @@ import (
 )
 
 type ArticleController struct {
-	beego.Controller
+	baseController
 }
 
 func (this *ArticleController) Index() {
-	this.Layout = "layout.html"
 	this.TplNames = "article/index.html"
 	this.LayoutSections = make(map[string]string)
-	this.LayoutSections["CSS"] = ""
-	this.LayoutSections["JS"] = ""
 	this.LayoutSections["Nav"] = "article/nav.html"
 
 	idStr := this.Ctx.Input.Param(":id")

@@ -17,7 +17,6 @@ func AdminModel() *admin {
 	return &_gAdmin
 }
 
-//@RET:cookie
 func (this *admin) Login(name, passwd string) error {
 	beego.Debug(name, passwd)
 	h := md5.New()

@@ -9,4 +9,15 @@ function login(){
 	};
 	return true;
 };
+
+function add(){
+	var title = document.add_form.title.value;
+	var content = document.add_form.content.value;
+	
+	if (title.length==0 || content.length==0) {
+		alert("标题或内容为空！");
+		return false;
+	};
+	return true;
+};
 </script>

@@ -37,8 +37,7 @@ func (this *baseController) validSess() bool {
 	//defer sess.SessionRelease(this.Ctx.ResponseWriter)
 	//cookie := sess.Get(C_COOKIE_NAME)
 	cookie := this.Ctx.GetCookie(C_COOKIE_NAME)
-	log.Debug("%s", cookie)
-	if "" == cookie {
+	if "macs" != cookie {
 		return false
 	}
 	return true

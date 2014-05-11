@@ -13,7 +13,7 @@ func init() {
 	beego.Router("/contact", &ContactController{}, "GET:Index")
 	beego.Router("/article/:id:int", &ArticleController{}, "GET:Index")
 	beego.Router("/admin/login", &admin.LoginController{}, "GET:Index;POST:Login")
-	beego.Router("/admin/add", &admin.AddController{}, "GET:Index")
+	beego.Router("/admin/add", &admin.AddController{}, "GET:Index;POST:Add")
 	//beego.Router("/tags/:id:int", &MainController{})
 	//beego.Router("/conmments/:id:int", &MainController{})
 	//beego.Router("/date/:id:int", &MainController{})

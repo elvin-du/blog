@@ -5,10 +5,17 @@ CREATE DATABASE blog;
 USE blog;
 
 drop table if exists `admins`;
-
 CREATE TABLE admins(id int(10) PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL);
 
 INSERT INTO admins(name, password) values("root", "63a9f0ea7bb98050796b649e85481845");
+
+DROP TABLE IF EXISTS `admin_sessions`;
+CREATE TABLE `admin_sessions`(
+	`id` int(10) AUTO_INCREMENT,
+	`session` varchar(50) NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY (`session`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 drop table if exists `blogs`;
 
