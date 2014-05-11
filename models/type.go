@@ -6,6 +6,7 @@ const (
 	ARTICLES_MODEL = iota
 	INFO_MODEL
 	ADMIN_MODEL
+	COMMENT_MODEL
 )
 
 type Article struct {

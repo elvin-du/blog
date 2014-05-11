@@ -2,7 +2,6 @@
 function login(){
 	var name = document.login_form.name.value;
 	var passwd = document.login_form.passwd.value;
-	
 	if (name.length==0 || passwd.length==0) {
 		alert("用户名或密码为空！");
 		return false;
@@ -13,7 +12,6 @@ function login(){
 function add(){
 	var title = document.add_form.title.value;
 	var content = document.add_form.content.value;
-	
 	if (title.length==0 || content.length==0) {
 		alert("标题或内容为空！");
 		return false;
