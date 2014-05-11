@@ -1,18 +1,13 @@
 package admin
 
-import "github.com/astaxie/beego"
+import ()
 
 type AddController struct {
-	beego.Controller
-	AuthController
+	baseController
 }
 
 func (this *AddController) Index() {
-	beego.Debug("AddController:index()")
-	err := this.Auth(this.Ctx)
-	if nil != err {
-		this.Redirect("/admin/login", 302)
-	}
+	log.Debug("AddController:index()")
 
 	this.Layout = "layout.html"
 	this.TplNames = "admin/add.html"
