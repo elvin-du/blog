@@ -3,6 +3,6 @@
    <div class="page-header">
     		<h4><a href="/article/{{$element.id}}">{{$element.title}}</a></h4>
    </div>
-   	<p class="lead">{{$element.content}}</p>
+   	<p class="lead">{{str2html $element.content}}</p>
 </div>
 {{end}}

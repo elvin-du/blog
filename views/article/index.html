@@ -3,7 +3,7 @@
    <div class="page-header">
     		<h4><a href="#">{{.article.title}}</a></h4>
    </div>
-   	<p class="lead">{{.article.content}}</p>
+   	<p class="lead">{{str2html .article.content}}</p>
 	<small>Oliver 发表于 	{{.article.a_ctime}}</small>
 	
 	<hr/>
