@@ -19,3 +19,11 @@ function add(){
 	return true;
 };
 </script>
+
+<script charset="utf-8" src="/static/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="/static/kindeditor/lang/zh_CN.js"></script>
+<script>
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#editor_id');
+        });
+</script>
