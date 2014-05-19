@@ -1,12 +1,9 @@
 drop DATABASE if exists `blog`;
-
 CREATE DATABASE blog;
-
 USE blog;
 
 drop table if exists `admins`;
 CREATE TABLE admins(id int(10) PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL);
-
 INSERT INTO admins(name, password) values("root", "63a9f0ea7bb98050796b649e85481845");
 
 DROP TABLE IF EXISTS `admin_sessions`;
@@ -18,22 +15,19 @@ CREATE TABLE `admin_sessions`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 drop table if exists `blogs`;
-
 CREATE TABLE articles(id int(10) PRIMARY KEY AUTO_INCREMENT,title VARCHAR(512), content TEXT NOT NULL, ctime datetime NOT NULL, tag_id int(10));
 
 drop table if exists `comments`;
-
 CREATE TABLE comments(id int(10) PRIMARY KEY AUTO_INCREMENT, ip VARCHAR(10) NOT NULL, comment TEXT NOT NULL, ctime datetime NOT NULL, article_id int(10));
 
 drop table if exists `tags`;
-
 CREATE TABLE tags(id int(10) PRIMARY KEY AUTO_INCREMENT, tag VARCHAR(512) NOT NULL);
 
 drop TABLE IF EXISTS `info`;
 CREATE TABLE info(id int(10) PRIMARY KEY AUTO_INCREMENT, name VARCHAR(512) NOT NULL, info TEXT);
 
 INSERT info(name, info) VALUES("email", "macs130828@gmail.com");
-INSERT info(name, info) VALUES("nick", "Oliver.Du");
+INSERT info(name, info) VALUES("nick", "Macs.Du");
 INSERT info(name, info) VALUES("about", 
 '本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，请移步<a href="http://www.github.com/">GitHub</a>'
 );
