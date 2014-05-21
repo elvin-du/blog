@@ -56,7 +56,7 @@ INSERT info(name, info) VALUES("email", "macs130828@gmail.com");
 INSERT info(name, info) VALUES("nick", "Macs.Du");
 INSERT info(name, info) VALUES(
 "about", 
-'本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，请移步<a href="https://github.com/macs-du/blog">GitHub</a>'
+'本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，请移步<a href="https://github.com/macs-du/blog" target="_blank">GitHub</a>'
 );
 
 INSERT INTO articles(title,content,ctime) VALUES(
