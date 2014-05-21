@@ -26,7 +26,7 @@ func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 		beego.Error(err)
 		return nil, err
 	}
-	beego.Debug(maps)
+	//beego.Debug(maps)
 	if len(maps) == 0 {
 		return nil, E_NOT_FOUND
 	}
@@ -35,14 +35,14 @@ func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 
 func (this *articles) Articles() ([]orm.Params, error) {
 	o := orm.NewOrm()
-	sqlStr := "SELECT * FROM articles"
+	sqlStr := "SELECT a.id, title, content, ctime, t.tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC "
 	var maps []orm.Params
 	_, err := o.Raw(sqlStr).Values(&maps)
 	if nil != err {
 		beego.Error(err)
 		return nil, err
 	}
-	beego.Debug(maps)
+	//beego.Debug(maps)
 	if len(maps) == 0 {
 		return nil, E_NOT_FOUND
 	}
@@ -57,4 +57,14 @@ func (this *articles) Add(title, content string) error {
 		return err
 	}
 	return nil
+}
+
+func (this *articles) Del(id int) error {
+	_, err := orm.NewOrm().Raw("delete from articles where id = ?", id).Exec()
+	return err
+}
+
+func (this *articles) Update(id int, title, content string) error {
+	_, err := orm.NewOrm().Raw("update articles set title=?, content=? where id = ?", title, content, id).Exec()
+	return err
 }

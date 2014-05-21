@@ -15,6 +15,7 @@ func (this *MainController) Index() {
 	this.TplNames = "main/index.html"
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["Nav"] = "main/nav.html"
+	//this.LayoutSections["CSS"] = "main/css.html"
 
 	as, err := models.ArticlesModel().Articles()
 	if nil != err {

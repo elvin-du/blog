@@ -4,7 +4,10 @@
     		<h4><a href="#">{{.article.title}}</a></h4>
    </div>
    	<p class="lead">{{str2html .article.content}}</p>
-	<small>Oliver 发表于 	{{.article.a_ctime}}</small>
+	<small>Macs 发表于 {{ymd .article.a_ctime}}</small>
+	
+	<small><a href="/admin/article/del/{{.id}}">删除</a></small>
+	<small><a href="/admin/article/edit/{{.id}}">编辑</a></small>
 	
 	<hr/>
 	<div style="padding-top:20px; padding-bottom:20px">文章评论</div>

@@ -16,7 +16,9 @@ func init() {
 
 	//admin
 	beego.Router("/admin/login", &admin.LoginController{}, "GET:Index;POST:Login")
-	beego.Router("/admin/add", &admin.AddController{}, "GET:Index;POST:Add")
+	beego.Router("/admin/article/add", &admin.ArticleController{}, "GET:AddView;POST:Add")
+	beego.Router("/admin/article/del/:id:int", &admin.ArticleController{}, "GET:Del")
+	beego.Router("/admin/article/edit/:id:int", &admin.ArticleController{}, "GET:EditView;POST:Edit")
 	//beego.Router("/tags/:id:int", &MainController{})
 	//beego.Router("/conmments/:id:int", &MainController{})
 	//beego.Router("/date/:id:int", &MainController{})
