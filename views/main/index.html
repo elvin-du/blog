@@ -11,3 +11,32 @@
 	</div>
 </div>
 {{end}}
+
+
+<div class="container"><!--分页-->
+<hr/>
+<ul class="pagination">
+
+    {{if eq 0 .pre_page}}
+		<li class="disabled"><a href="#">Prev</a></li>
+	{{else}}
+		<li><a href="/article/page/{{.pre_page}}">Prev</a></li>
+	{{end}}
+	
+	{{$cur := .cur_page}}<!--must, if not, [<.cur_page>: can't evaluate field cur_page in type int] error show-->
+	{{range $elmt := .total}}
+		{{if eq  $elmt $cur}}<!--must, if not, [<.cur_page>: can't evaluate field cur_page in type int] error show-->
+			<li class="active"><a href="/article/page/{{$elmt}}">{{$elmt}}</a></li>
+		{{else}}
+			<li><a href="/article/page/{{.}}">{{.}}</a></li>
+		{{end}}
+	{{end}}
+	
+	{{$lg := len .total}}
+	{{if eq $lg .cur_page}}
+		<li class="disabled"><a href="#">Next</a></li>
+	{{else}}
+		<li><a href="/article/page/{{.next_page}}">Next</a></li>
+	{{end}}
+</ul>
+</div>

@@ -33,20 +33,51 @@ func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 	return maps, nil
 }
 
-func (this *articles) Articles() ([]orm.Params, error) {
-	o := orm.NewOrm()
-	sqlStr := "SELECT a.id, title, content, ctime, t.tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC "
+func (this *articles) Count() (int64, error) {
+	sqlStr := "select count(*) from articles"
 	var maps []orm.Params
-	_, err := o.Raw(sqlStr).Values(&maps)
+	_, err := orm.NewOrm().Raw(sqlStr).Values(&maps)
 	if nil != err {
 		beego.Error(err)
-		return nil, err
+		return 0, err
 	}
-	//beego.Debug(maps)
+	beego.Debug(maps)
+
+	totalStr := maps[0]["count(*)"].(string)
+	total, err := strconv.ParseInt(totalStr, 10, 64)
+	if nil != err {
+		beego.Error(err)
+		return 0, err
+	}
+	return total, nil
+}
+
+func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
+	total, err := this.Count()
+	if nil != err {
+		return nil, 0, err
+	}
+
+	totalPage := total / num
+	if 0 != total%num {
+		totalPage++
+	}
+
+	var maps []orm.Params
+	if page > totalPage {
+		return maps, totalPage, nil
+	}
+	sqlStr := "SELECT a.id, title, content, ctime, t.tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC LIMIT ?,?"
+	_, err = orm.NewOrm().Raw(sqlStr, (page-1)*num, num).Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return nil, totalPage, err
+	}
+
 	if len(maps) == 0 {
-		return nil, E_NOT_FOUND
+		return nil, totalPage, E_NOT_FOUND
 	}
-	return maps, nil
+	return maps, totalPage, nil
 }
 
 func (this *articles) Add(title, content string) error {
