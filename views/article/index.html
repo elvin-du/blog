@@ -6,8 +6,10 @@
    	<p class="lead">{{str2html .article.content}}</p>
 	<small>Macs 发表于 {{ymd .article.a_ctime}}</small>
 	
+	{{if eq .admin "admin"}}
 	<small><a href="/admin/article/del/{{.id}}">删除</a></small>
 	<small><a href="/admin/article/edit/{{.id}}">编辑</a></small>
+	{{end}}
 	
 	<hr/>
 	<div style="padding-top:20px; padding-bottom:20px">文章评论</div>

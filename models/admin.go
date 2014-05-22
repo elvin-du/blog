@@ -70,6 +70,16 @@ func (this *admin) Session(uid int) (string, error) {
 	return session, nil
 }
 
+func (this *admin) DelSession(session string) error {
+	sqlStr := "delete from admin_sessions where session= ?"
+	_, err := orm.NewOrm().Raw(sqlStr, session).Exec()
+	if nil != err {
+		beego.Error(err)
+		return err
+	}
+	return nil
+}
+
 func (this *admin) ValidSession(sess string) bool {
 	sqlStr := "select id from admin_sessions where session = ?"
 	var maps []orm.Params

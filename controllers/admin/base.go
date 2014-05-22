@@ -24,11 +24,12 @@ func (this *baseController) Prepare() {
 }
 
 func (this *baseController) auth() {
+	beego.Debug("autho")
 	switch {
-	case this.controllerName == "LoginController" && this.actionName == "Login":
-	case this.controllerName == "LoginController" && this.actionName == "Index":
+	case this.controllerName == "AdminController" && this.actionName == "Login":
+	case this.controllerName == "AdminController" && this.actionName == "Index":
 		if this.validSess() {
-			this.Data["admin"] = "amdin"
+			this.Data["admin"] = "admin"
 			this.Redirect("/admin/article/add", 302)
 			return
 		}
@@ -39,7 +40,7 @@ func (this *baseController) auth() {
 			this.Redirect("/admin/login", 302)
 			return
 		}
-		this.Data["admin"] = "amdin"
+		this.Data["admin"] = "admin"
 	}
 }
 

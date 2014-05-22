@@ -51,4 +51,9 @@ func (this *MainController) Index() {
 	this.Data["cur_page"] = page
 	this.Data["pre_page"] = int(page - 1)
 	this.Data["next_page"] = int(page + 1)
+	if total > 1 {
+		this.Data["pagination"] = "show"
+	} else {
+		this.Data["pagination"] = ""
+	}
 }
