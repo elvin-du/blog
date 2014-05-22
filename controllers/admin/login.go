@@ -20,11 +20,11 @@ func (this *LoginController) Login() {
 	name := this.GetString("name")
 	passwd := this.GetString("passwd")
 
-	err := models.AdminModel().Login(name, passwd)
+	sess, err := models.AdminModel().Login(name, passwd)
 	if nil != err {
 		beego.Error(err)
 		this.Redirect("/admin/login", 302)
 	}
-	this.Ctx.SetCookie(controllers.C_COOKIE_NAME, "macs")
+	this.Ctx.SetCookie(controllers.C_COOKIE_NAME, sess)
 	this.Redirect("/admin/article/add", 302)
 }

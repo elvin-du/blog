@@ -2,6 +2,7 @@ package admin
 
 import (
 	"blog/controllers"
+	"blog/models"
 
 	"github.com/astaxie/beego"
 )
@@ -43,12 +44,6 @@ func (this *baseController) auth() {
 }
 
 func (this *baseController) validSess() bool {
-	//sess := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
-	//defer sess.SessionRelease(this.Ctx.ResponseWriter)
-	//cookie := sess.Get(C_COOKIE_NAME)
 	cookie := this.Ctx.GetCookie(controllers.C_COOKIE_NAME)
-	if "macs" != cookie {
-		return false
-	}
-	return true
+	return models.AdminModel().ValidSession(cookie)
 }

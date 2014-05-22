@@ -1,6 +1,10 @@
 package controllers
 
-import "github.com/astaxie/beego"
+import (
+	"blog/models"
+
+	"github.com/astaxie/beego"
+)
 
 type baseController struct {
 	controllerName string
@@ -22,12 +26,6 @@ func (this *baseController) auth() {
 }
 
 func (this *baseController) validSess() bool {
-	//sess := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
-	//defer sess.SessionRelease(this.Ctx.ResponseWriter)
-	//cookie := sess.Get(C_COOKIE_NAME)
 	cookie := this.Ctx.GetCookie(C_COOKIE_NAME)
-	if "macs" != cookie {
-		return false
-	}
-	return true
+	return models.AdminModel().ValidSession(cookie)
 }
