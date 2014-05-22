@@ -1,6 +1,10 @@
 package admin
 
-import "github.com/astaxie/beego"
+import (
+	"blog/controllers"
+
+	"github.com/astaxie/beego"
+)
 
 type baseController struct {
 	controllerName string
@@ -23,12 +27,18 @@ func (this *baseController) auth() {
 	case this.controllerName == "LoginController" && this.actionName == "Login":
 	case this.controllerName == "LoginController" && this.actionName == "Index":
 		if this.validSess() {
-			this.Redirect("/admin/add", 302)
+			this.Data["admin"] = "amdin"
+			this.Redirect("/admin/article/add", 302)
+			return
 		}
+		this.Data["admin"] = ""
 	default:
 		if !this.validSess() {
+			this.Data["admin"] = ""
 			this.Redirect("/admin/login", 302)
+			return
 		}
+		this.Data["admin"] = "amdin"
 	}
 }
 
@@ -36,7 +46,7 @@ func (this *baseController) validSess() bool {
 	//sess := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
 	//defer sess.SessionRelease(this.Ctx.ResponseWriter)
 	//cookie := sess.Get(C_COOKIE_NAME)
-	cookie := this.Ctx.GetCookie(C_COOKIE_NAME)
+	cookie := this.Ctx.GetCookie(controllers.C_COOKIE_NAME)
 	if "macs" != cookie {
 		return false
 	}

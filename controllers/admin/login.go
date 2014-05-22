@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"blog/controllers"
 	"blog/models"
 
 	"github.com/astaxie/beego"
@@ -24,6 +25,6 @@ func (this *LoginController) Login() {
 		beego.Error(err)
 		this.Redirect("/admin/login", 302)
 	}
-	this.Ctx.SetCookie(C_COOKIE_NAME, "macs")
-	this.Redirect("/admin/add", 302)
+	this.Ctx.SetCookie(controllers.C_COOKIE_NAME, "macs")
+	this.Redirect("/admin/article/add", 302)
 }

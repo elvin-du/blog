@@ -7,3 +7,7 @@ package controllers
 //	C_HTTP_NOT_FOUND      = 404
 //	C_HTTP_INTERNAL_ERROR = 500
 //)
+
+const (
+	C_COOKIE_NAME = "__macs__word__"
+)
