@@ -9,7 +9,7 @@ import (
 func init() {
 	beego.SetLogFuncCall(true)
 	beego.SetLogger("file", `{"filename":"blog.log"}`)
-	beego.AddFuncMap("excerpt", utils.Excerpt)
+	//beego.AddFuncMap("excerpt", utils.Excerpt)
 	beego.AddFuncMap("ymd", utils.YYYYMMDD)
 
 }

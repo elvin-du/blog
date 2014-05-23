@@ -1,6 +1,7 @@
 package models
 
 import (
+	"blog/utils"
 	"strconv"
 	"time"
 
@@ -67,7 +68,7 @@ func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
 	if page > totalPage {
 		return maps, totalPage, nil
 	}
-	sqlStr := "SELECT a.id, title, content, ctime, t.tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC LIMIT ?,?"
+	sqlStr := "SELECT a.id, title,excerpt, content, ctime, t.tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC LIMIT ?,?"
 	_, err = orm.NewOrm().Raw(sqlStr, (page-1)*num, num).Values(&maps)
 	if nil != err {
 		beego.Error(err)
@@ -81,8 +82,9 @@ func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
 }
 
 func (this *articles) Add(title, content string) error {
+	excerpt, content := utils.ExcerptContent(content)
 	o := orm.NewOrm()
-	_, err := o.Raw("insert articles(title,content, ctime) values(?,?,?)", title, content, time.Now()).Exec()
+	_, err := o.Raw("insert articles(title,excerpt,content, ctime) values(?,?,?,?)", title, excerpt, content, time.Now()).Exec()
 	if nil != err {
 		beego.Error(err)
 		return err

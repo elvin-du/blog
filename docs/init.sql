@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles`(
 	`id` 	int(10) PRIMARY KEY AUTO_INCREMENT,
 	`title`	 VARCHAR(512), 
+	`excerpt` TEXT NOT NULL,
 	`content` TEXT NOT NULL, 
 	`ctime` 	 datetime NOT NULL,
 	`tag_id`	 int(10) DEFAULT 1
@@ -63,8 +64,9 @@ INSERT `infos` VALUES(2,'nick', 'Macs.Du');
 INSERT `infos` VALUES(3,'about', 
 '本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，请移步<a href="https://github.com/macs-du/blog" target="_blank">GitHub</a>');
 INSERT `tags`(id, tag) VALUES(1,'原创');
-INSERT articles(title,content,ctime) VALUES(
+INSERT articles(title,excerpt,content,ctime) VALUES(
 	"网站初始化成功",
-	"当你看到这篇的时候，就代表着您网站初始化成功。即将开始您的个人博客之路。",
+	'当你看到这篇的时候，就代表着您网站初始化成功',
+	'当你看到这篇的时候，就代表着您网站初始化成功。</br>即将开始您的个人博客之路。',
 	now()
 );

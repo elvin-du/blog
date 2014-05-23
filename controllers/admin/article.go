@@ -2,6 +2,7 @@ package admin
 
 import (
 	"blog/models"
+	"blog/utils"
 	"net/http"
 	"strconv"
 
@@ -64,7 +65,9 @@ func (this *ArticleController) EditView() {
 
 	if len(as) != 0 {
 		this.TplNames = "admin/edit.html"
-		this.Data["article"] = as[0]
+		this.Data["article_excerpt"] = as[0]["excerpt"]
+		this.Data["article_content"] = as[0]["content"]
+		this.Data["c_excerpt_tag"] = utils.C_EXCERPT_TAG
 		this.Data["id"] = id
 	}
 }

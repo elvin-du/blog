@@ -13,16 +13,15 @@ import (
 )
 
 const (
-	C_EXCERPT_TAG = "__EXCERPT__TAG__"
+	C_EXCERPT_TAG = "_excerpt_tag_"
 )
 
-//template func
-func Excerpt(in string) string {
+func ExcerptContent(in string) (excerpt, content string) {
 	i := strings.Index(in, C_EXCERPT_TAG)
 	if -1 != i {
-		return in[:i]
+		return in[:i], strings.Replace(in, C_EXCERPT_TAG, "", 0)
 	}
-	return in
+	return in, in
 }
 
 func YYYYMMDD(date string) string {

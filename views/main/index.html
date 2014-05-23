@@ -3,7 +3,7 @@
    <div class="page-header">
     		<h4><a href="/article/{{$element.id}}">{{$element.title}}</a></h4>
    </div>
-   	<p class="lead">{{excerpt $element.content| str2html}}</p>
+   	<p class="lead">{{$element.excerpt| str2html}}</p>
 	
 	<div>
 	<small id="date">Macs  发表于 {{ymd $element.ctime}}</small>
