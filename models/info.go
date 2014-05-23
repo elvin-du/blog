@@ -17,7 +17,7 @@ func InfoModel() *info {
 
 func (this *info) InfoFromName(name string) ([]orm.Params, error) {
 	o := orm.NewOrm()
-	sql := fmt.Sprintf("select * from info where name = '%s'", name)
+	sql := fmt.Sprintf("select * from infos where name = '%s'", name)
 	var maps []orm.Params
 	_, err := o.Raw(sql).Values(&maps)
 	if nil != err {
