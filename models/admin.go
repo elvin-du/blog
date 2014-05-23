@@ -29,23 +29,26 @@ func (this *admin) Login(name, passwd string) (string, error) {
 	passwd = hex.EncodeToString(h.Sum(nil))
 
 	var maps []orm.Params
-	sqlStr := "select id from admins where name = ? and password = ?"
+	sqlStr := `select id from admins where name = ? and password =?`
 	_, err = orm.NewOrm().Raw(sqlStr, name, passwd).Values(&maps)
 	if nil != err {
 		beego.Error(err)
 		return "", err
 	}
-
+	beego.Debug("maps:", maps)
 	if len(maps) < 1 {
+		beego.Debug("not found")
 		return "", E_NOT_FOUND
 	}
 	idi, ok := maps[0]["id"]
 	if !ok {
+		beego.Debug("no id")
 		return "", E_NOT_FOUND
 	}
 
 	idStr, ok := idi.(string)
 	if !ok {
+		beego.Debug("not string")
 		return "", E_NOT_FOUND
 	}
 
