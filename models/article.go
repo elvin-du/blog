@@ -20,7 +20,7 @@ func ArticlesModel() *articles {
 
 func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 	o := orm.NewOrm()
-	sqlStr := "SELECT title,content,a.ctime a_ctime,comment,ip,c.ctime FROM articles a LEFT JOIN comments c ON a.id = c.article_id WHERE a.id = " + strconv.Itoa(id)
+	sqlStr := "SELECT title,excerpt,content,a.ctime a_ctime,comment,ip,c.ctime FROM articles a LEFT JOIN comments c ON a.id = c.article_id WHERE a.id = " + strconv.Itoa(id)
 	var maps []orm.Params
 	_, err := o.Raw(sqlStr).Values(&maps)
 	if nil != err {
@@ -83,6 +83,8 @@ func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
 
 func (this *articles) Add(title, content string) error {
 	excerpt, content := utils.ExcerptContent(content)
+	beego.Debug(excerpt)
+	beego.Debug(content)
 	o := orm.NewOrm()
 	_, err := o.Raw("insert articles(title,excerpt,content, ctime) values(?,?,?,?)", title, excerpt, content, time.Now()).Exec()
 	if nil != err {
@@ -98,6 +100,9 @@ func (this *articles) Del(id int) error {
 }
 
 func (this *articles) Update(id int, title, content string) error {
-	_, err := orm.NewOrm().Raw("update articles set title=?, content=? where id = ?", title, content, id).Exec()
+	excerpt, content := utils.ExcerptContent(content)
+	beego.Debug(excerpt)
+	beego.Debug(content)
+	_, err := orm.NewOrm().Raw("update articles set title=?,excerpt=?, content=? where id = ?", title, excerpt, content, id).Exec()
 	return err
 }

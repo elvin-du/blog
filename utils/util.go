@@ -18,10 +18,11 @@ const (
 
 func ExcerptContent(in string) (excerpt, content string) {
 	i := strings.Index(in, C_EXCERPT_TAG)
+	beego.Debug(i)
 	if -1 != i {
-		return in[:i], strings.Replace(in, C_EXCERPT_TAG, "", 0)
+		return in[:i], in[i+len(C_EXCERPT_TAG):]
 	}
-	return in, in
+	return in, ""
 }
 
 func YYYYMMDD(date string) string {

@@ -3,7 +3,7 @@
    <div class="page-header">
     		<h4><a href="#">{{.article.title}}</a></h4>
    </div>
-   	<p class="lead">{{str2html .article.content}}</p>
+   	<p class="lead">{{str2html .article.excerpt}}{{str2html .article.content}}</p>
 	<small>Macs 发表于 {{ymd .article.a_ctime}}</small>
 	
 	{{if eq .admin "admin"}}
