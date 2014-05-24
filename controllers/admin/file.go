@@ -33,7 +33,7 @@ func (this *FileController) Upload() {
 			if err := this.SaveToFile("imgFile", filename); err != nil {
 				out["error"] = 3
 			} else {
-				out["url"] = filename[1:]
+				out["url"] = "/dl/" + filename[9:]
 			}
 		}
 	}
