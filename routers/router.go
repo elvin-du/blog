@@ -23,6 +23,9 @@ func init() {
 	beego.Router("/admin/article/edit/:id:int", &admin.ArticleController{}, "GET:EditView;POST:Edit")
 	beego.Router("/admin/file/upload", &admin.FileController{}, "*:Upload")
 	beego.Router("/admin/file/del", &admin.FileController{}, "*:Del")
+
+	//download
+	beego.Router("/dl/*.*", &DownloadController{}, "*:Index")
 	//beego.Router("/tags/:id:int", &MainController{})
 	//beego.Router("/conmments/:id:int", &MainController{})
 	//beego.Router("/date/:id:int", &MainController{})
