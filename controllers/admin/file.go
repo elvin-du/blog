@@ -33,7 +33,12 @@ func (this *FileController) Upload() {
 			if err := this.SaveToFile("imgFile", filename); err != nil {
 				out["error"] = 3
 			} else {
-				out["url"] = "/dl/" + filename[9:]
+				beego.Debug(this.GetString("dir"))
+				if "file" == this.GetString("dir") {
+					out["url"] = "/dl/" + filename[9:]
+				} else {
+					out["url"] = filename[1:]
+				}
 			}
 		}
 	}

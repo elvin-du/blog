@@ -11,8 +11,8 @@ function login(){
 
 function add(){
 	var title = document.add_form.title.value;
-	var content = CKEDITOR.instances.content.getData()
-	if (title.length==0 || content.length==0) {
+	KindEditor.instances[0].sync(); 
+	if (title.length==0 || KindEditor.instances[0].isEmpty()) {
 		alert("标题或内容为空！");
 		return false;
 	};
