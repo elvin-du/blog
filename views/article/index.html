@@ -25,7 +25,7 @@
 			<small style="margin:15px 0 0 0;">{{ymdhmch $element.ctime}}</small>
 		</div>
 		<div class="col-lg-1">
-			<a href="#">回复</a>
+			<a href="#" onclick="comment_reply({{$element.nick}})">回复</a>
 		</div>
 	</div>
 	<div class="row">
@@ -39,7 +39,6 @@
 
 	<hr/>
 	<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{.id}}" onSubmit="return addComment();">
-
 		<div class="row">
 			<div class="col-lg-3 col-lg-offset-1">
 				<input type="text" name="nick" class="form-control" placeholder="昵称">
@@ -48,7 +47,7 @@
 			</div><!-- /.col-lg-3 -->
 
 			<div class="col-lg-7">
-				<textarea name="comment" class="form-control" rows="7" placeholder="评论"></textarea>
+				<textarea id="cmt" name="comment" class="form-control" rows="7" placeholder="评论"></textarea>
 				<div style="margin-top:10px;">
 					<div class="row">
 						<div class="col-lg-3">

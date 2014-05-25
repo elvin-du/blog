@@ -8,4 +8,10 @@
 		};
 		return true;
 	};
+
+	function comment_reply(nick){
+		var _targetTop = $('#cmt').offset().top;//获取位置  
+        jQuery("html,body").animate({scrollTop:_targetTop},100);//跳转
+        $('#cmt').val('').focus().val('@'+nick+':')
+    };
 </script>
