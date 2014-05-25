@@ -10,8 +10,7 @@ import (
 func init() {
 	beego.Router("/", &MainController{}, "GET:Index")
 	beego.Router("/article/page/:page:int", &MainController{}, "GET:Index")
-	beego.Router("/about", &AboutController{}, "GET:Index")
-	beego.Router("/contact", &ContactController{}, "GET:Index")
+	beego.Router("/about", &InfoController{}, "GET:About")
 	beego.Router("/article/:id:int", &ArticleController{}, "GET:Index")
 	beego.Router("/comment/:id:int", &CommentController{}, "POST:Add")
 
@@ -23,6 +22,8 @@ func init() {
 	beego.Router("/admin/article/edit/:id:int", &admin.ArticleController{}, "GET:EditView;POST:Edit")
 	beego.Router("/admin/file/upload", &admin.FileController{}, "*:Upload")
 	beego.Router("/admin/file/del", &admin.FileController{}, "*:Del")
+	beego.Router("/admin/about/update", &admin.InfoController{}, "*:UpdateAbout")
+	beego.Router("/admin/about", &admin.InfoController{}, "*:About")
 
 	//download
 	beego.Router("/dl/*.*", &DownloadController{}, "*:Index")

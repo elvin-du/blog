@@ -7,11 +7,11 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type AboutController struct {
+type InfoController struct {
 	baseController
 }
 
-func (this *AboutController) Index() {
+func (this *InfoController) About() {
 	this.TplNames = "about/index.html"
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["Nav"] = "about/nav.html"
@@ -23,6 +23,5 @@ func (this *AboutController) Index() {
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
-
 	this.Data["about"] = about[0]
 }

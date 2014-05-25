@@ -31,3 +31,12 @@ func (this *info) InfoFromName(name string) ([]orm.Params, error) {
 	}
 	return maps, nil
 }
+
+func (this *info) UdateAbout(update string) error {
+	_, err := orm.NewOrm().Raw(`update infos set value=? where name='about'`, update).Exec()
+	if nil != err {
+		beego.Error(err)
+		return err
+	}
+	return nil
+}
