@@ -5,61 +5,61 @@
 	<meta http-equiv="Content-Language" content="zh-cn"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Macs.Du Golang Blog</title>
- 	<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">	
+	<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">	
 	<link rel="shortcut icon" href="/static/ico/favicon.ico">
 	<!-- Custom styles for this template -->
-    <link href="/static/css/sticky-footer.css" rel="stylesheet">
+	<link href="/static/css/sticky-footer.css" rel="stylesheet">
 	<link href="/static/css/base.css" rel="stylesheet">
 	{{.CSS}}
 </head>
 <body>
-<div id="wrap"><!--wrap-->
- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-	    <div class="navbar-header">
-	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	          <span class="sr-only">Toggle navigation</span>
-	          <span class="icon-bar"></span>
-	          <span class="icon-bar"></span>
-	          <span class="icon-bar"></span>
-	        </button>
-	        <a class="navbar-brand" href="#">个人博客</a>
-	    </div>
-		
-	    <div class="collapse navbar-collapse">
-	        <ul class="nav navbar-nav">
-	          {{.Nav}}
-	        </ul>
-			
-			<form class="navbar-form navbar-left" role="search">
-			    <div class="form-group">
-					<input type="text" class="form-control" placeholder="搜索内容">
+	<div id="wrap"><!--wrap-->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">个人博客</a>
 				</div>
-				<button type="submit" class="btn btn-success">搜索</button>
-			</form>
+				
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						{{.Nav}}
+					</ul>
+					
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="搜索内容">
+						</div>
+						<button type="submit" class="btn btn-success">搜索</button>
+					</form>
 
-			{{if eq .admin "admin"}}
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/admin/article/add">写文章</a></li>
-				<li><a href="/admin/logout">退出</a></li>
-			</ul>
-			{{end}}
+					{{if eq .admin "admin"}}
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/admin/article/add">写文章</a></li>
+						<li><a href="/admin/logout">退出</a></li>
+					</ul>
+					{{end}}
 
-	    </div><!--/.nav-collapse -->
-	</div><!--div container-->
-</nav><!--navbar-->
-	{{.LayoutContent}}
-</div><!--wrap-->
+				</div><!--/.nav-collapse -->
+			</div><!--div container-->
+		</nav><!--navbar-->
+		{{.LayoutContent}}
+	</div><!--wrap-->
 
-<div id="footer"><!--footer-->
-   <div class="container">
-      <p class="text-muted">Oliver © 2014 All rights reserved.</p>
-  </div>
-</div><!--footer-->
+	<div id="footer"><!--footer-->
+		<div class="container">
+			<p class="text-muted">Macs © 2014 All rights reserved.</p>
+		</div>
+	</div><!--footer-->
 	
-<!-- Bootstrap -->
-<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-{{.JS}}
+	<!-- Bootstrap -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	{{.JS}}
 </body>
 </html>

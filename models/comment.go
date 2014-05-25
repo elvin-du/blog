@@ -16,9 +16,9 @@ func CommentModel() *comment {
 	return &_gComment
 }
 
-func (this *comment) Add(id, comment, ip string) error {
+func (this *comment) Add(id, comment, ip, nick, site, email string) error {
 	o := orm.NewOrm()
-	_, err := o.Raw("insert comments(ip,comment, ctime, article_id) values(?,?,?,?)", ip, comment, time.Now(), id).Exec()
+	_, err := o.Raw("insert comments(ip,comment, ctime, article_id,nick,site,email) values(?,?,?,?,?,?,?)", ip, comment, time.Now(), id, nick, site, email).Exec()
 	if nil != err {
 		beego.Error(err)
 		return err

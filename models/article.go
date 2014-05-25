@@ -20,7 +20,7 @@ func ArticlesModel() *articles {
 
 func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
 	o := orm.NewOrm()
-	sqlStr := "SELECT title,excerpt,content,a.ctime a_ctime,comment,ip,c.ctime FROM articles a LEFT JOIN comments c ON a.id = c.article_id WHERE a.id = " + strconv.Itoa(id)
+	sqlStr := "SELECT title,excerpt,content,a.ctime a_ctime,comment,ip,c.ctime, nick,site,email FROM articles a LEFT JOIN comments c ON a.id = c.article_id WHERE a.id = " + strconv.Itoa(id)
 	var maps []orm.Params
 	_, err := o.Raw(sqlStr).Values(&maps)
 	if nil != err {

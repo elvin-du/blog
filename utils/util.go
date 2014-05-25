@@ -33,6 +33,14 @@ func YYYYMMDD(date string) string {
 	return date
 }
 
+func YMDHMCN(date string) string {
+	feilds := strings.Fields(date)
+	ymd := strings.Split(feilds[0], "-")
+	hms := strings.Split(feilds[1], ":")
+
+	return fmt.Sprintf("%s 年 %s 月 %s 日 %s 时 %s 分", ymd[0], ymd[1], ymd[2], hms[0], hms[1])
+}
+
 func UUID() string {
 	gid := os.Getgid()
 	uid := os.Getuid()

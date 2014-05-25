@@ -44,6 +44,9 @@ CREATE TABLE `comments`(
 	`id` int(10) PRIMARY KEY AUTO_INCREMENT,
 	`ip` VARCHAR(10) NOT NULL,
 	`comment` TEXT NOT NULL,
+	`nick`  VARCHAR(32) NOT NULL,
+	`email` VARCHAR(32) NOT NULL,
+	`site` VARCHAR(64) NOT NULL,
 	`ctime` datetime NOT NULL,
 	`article_id` int(10)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

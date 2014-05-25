@@ -1,35 +1,62 @@
 <!-- Begin page content -->
 <div class="container">
-   <div class="page-header">
-    		<h4><a href="#">{{.article.title}}</a></h4>
-   </div>
-   	<p class="lead">{{str2html .article.excerpt}}{{str2html .article.content}}</p>
+	<div class="page-header">
+		<h4><a href="#">{{.article.title}}</a></h4>
+	</div>
+	<p class="lead">{{str2html .article.excerpt}}{{str2html .article.content}}</p>
 	<small>Macs 发表于 {{ymd .article.a_ctime}}</small>
-	
+
 	{{if eq .admin "admin"}}
 	<small><a href="/admin/article/del/{{.id}}">删除</a></small>
 	<small><a href="/admin/article/edit/{{.id}}">编辑</a></small>
 	{{end}}
-	
+
 	<hr/>
 	<div style="padding-top:20px; padding-bottom:20px">文章评论</div>
-	
-	<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{.id}}" onSubmit="return addComment();">
-	<div class="row">
-	  <div class="col-lg-12">
-	    <div class="input-group">
-	      <input type="text" name="comment" class="form-control" placeholder="评论">
-	      <span class="input-group-btn">
-	        <button class="btn btn-default" type="submit">发布</button>
-	      </span>
-	    </div><!-- /input-group -->
-	  </div><!-- /.col-lg-10 -->
-	</div><!-- /.row -->
-	</from>
-	
 	<hr/>
+
 	{{range $element := .comments}}
-		{{$element.comment}}<br>
-		<p class="text-right"><small>{{$element.ctime}}</small></p>
+	<div class="row">
+		<div class="col-lg-1">
+			<img src="/static/ico/comment_user.ico">
+		</div>
+		<div class="col-lg-10">
+			<strong style="margin:0 0 10px 0;">{{$element.nick}}</strong><br>
+			<small style="margin:15px 0 0 0;">{{ymdhmch $element.ctime}}</small>
+		</div>
+		<div class="col-lg-1">
+			<a href="#">回复</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-11 col-lg-offset-1">
+			{{$element.comment}}<br>
+		</div>
+	</div>
+	<br>
+	<br>
 	{{end}}
+
+	<hr/>
+	<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{.id}}" onSubmit="return addComment();">
+
+		<div class="row">
+			<div class="col-lg-3 col-lg-offset-1">
+				<input type="text" name="nick" class="form-control" placeholder="昵称">
+				<input type="text" name="email" class="form-control" placeholder="邮箱">
+				<input type="text" name="site" class="form-control" placeholder="网站">
+			</div><!-- /.col-lg-3 -->
+
+			<div class="col-lg-7">
+				<textarea name="comment" class="form-control" rows="7" placeholder="评论"></textarea>
+				<div style="margin-top:10px;">
+					<div class="row">
+						<div class="col-lg-3">
+							<button class="btn btn-success btn-block" type="submit">发布</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.row -->
+	</from>
 </div>

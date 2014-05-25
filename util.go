@@ -11,5 +11,5 @@ func init() {
 	beego.SetLogger("file", `{"filename":"blog.log"}`)
 	//beego.AddFuncMap("excerpt", utils.Excerpt)
 	beego.AddFuncMap("ymd", utils.YYYYMMDD)
-
+	beego.AddFuncMap("ymdhmch", utils.YMDHMCN)
 }

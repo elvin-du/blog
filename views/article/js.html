@@ -1,10 +1,11 @@
 <script type="text/javascript">
-function addComment(){
-	var comment = document.comment_form.comment.value;
-	if (comment.length==0) {
-		alert("内容为空！");
-		return false;
+	function addComment(){
+		var comment = document.comment_form.comment.value;
+		var nick = document.comment_form.nick.value;
+		if (comment.length==0 || nick.length==0) {
+			alert("昵称和内容为空！");
+			return false;
+		};
+		return true;
 	};
-	return true;
-};
 </script>
