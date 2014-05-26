@@ -2,64 +2,75 @@ DROP DATABASE IF EXISTS `blog`;
 CREATE DATABASE `blog`;
 USE `blog`;
 
-#
-#**************************CREATE TABLE****************************************************
-#
+################CREATE TABLE#############################
 
 DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins`(
-	`id` int(10) PRIMARY KEY AUTO_INCREMENT,
-	`name` VARCHAR(100) NOT NULL, 
-	`password` VARCHAR(100) NOT NULL
+	`id` int(16) PRIMARY KEY AUTO_INCREMENT,
+	`name` VARCHAR(128) NOT NULL, 
+	`password` VARCHAR(128) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `admin_sessions`;
 CREATE TABLE `admin_sessions`(
-	`id` int(10) AUTO_INCREMENT,
-	`uid` int(10) NOT NULL,
-	`session` varchar(50) NOT NULL,
+	`id` int(16) AUTO_INCREMENT,
+	`uid` int(16) NOT NULL,
+	`session` varchar(64) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`session`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `infos`;
 CREATE TABLE `infos`(
-	`id`   int(10) PRIMARY KEY AUTO_INCREMENT, 
+	`id`   int(16) PRIMARY KEY AUTO_INCREMENT, 
 	`name` VARCHAR(512) NOT NULL, 
 	`value` TEXT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles`(
-	`id` 	int(10) PRIMARY KEY AUTO_INCREMENT,
+	`id` 	int(16) PRIMARY KEY AUTO_INCREMENT,
 	`title`	 VARCHAR(512), 
 	`excerpt` TEXT NOT NULL,
 	`content` TEXT NOT NULL, 
 	`ctime` 	 datetime NOT NULL,
-	`tag_id`	 int(10) DEFAULT 1
+	`tag_id`	 int(16) DEFAULT 1
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments`(
-	`id` int(10) PRIMARY KEY AUTO_INCREMENT,
-	`ip` VARCHAR(10) NOT NULL,
+	`id` int(16) PRIMARY KEY AUTO_INCREMENT,
+	`ip` VARCHAR(64) NOT NULL,
 	`comment` TEXT NOT NULL,
-	`nick`  VARCHAR(32) NOT NULL,
+	`nick`  VARCHAR(64) NOT NULL,
 	`email` VARCHAR(32) NOT NULL,
 	`site` VARCHAR(64) NOT NULL,
 	`ctime` datetime NOT NULL,
-	`article_id` int(10)
+	`article_id` int(16)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags`(
-	`id`  int(10) PRIMARY KEY AUTO_INCREMENT, 
+	`id`  int(16) PRIMARY KEY AUTO_INCREMENT, 
 	`tag` VARCHAR(512) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-#
-#*******************************INSERT*****************************************************
-#
+DROP TABLE IF EXISTS `visitors`;
+CREATE TABLE `visitors`(
+	`id` int(16) PRIMARY KEY AUTO_INCREMENT,
+	`ip` VARCHAR(64) NOT NULL,
+	`atime` datetime NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `read_history`;
+CREATE TABLE `read_history`(
+	`id` int(16) PRIMARY KEY AUTO_INCREMENT,
+	`article_id` int(16) NOT NULL,
+	`ip` VARCHAR(64) NOT NULL,
+	`atime` datetime NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+######################INSERT##################################
 
 INSERT `admins` VALUES(1,'root', '63a9f0ea7bb98050796b649e85481845');
 INSERT `infos` VALUES(1,'email', 'macs130828@gmail.com');
