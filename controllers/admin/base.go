@@ -29,18 +29,18 @@ func (this *baseController) auth() {
 	case this.controllerName == "AdminController" && this.actionName == "Login":
 	case this.controllerName == "AdminController" && this.actionName == "Index":
 		if this.validSess() {
-			this.Data["admin"] = "admin"
+			this.Data["admin"] = true
 			this.Redirect("/admin/article/add", 302)
 			return
 		}
-		this.Data["admin"] = ""
+		this.Data["admin"] = false
 	default:
 		if !this.validSess() {
-			this.Data["admin"] = ""
+			this.Data["admin"] = false
 			this.Redirect("/admin/login", 302)
 			return
 		}
-		this.Data["admin"] = "admin"
+		this.Data["admin"] = true
 	}
 }
 

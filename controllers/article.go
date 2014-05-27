@@ -17,6 +17,7 @@ func (this *ArticleController) Index() {
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["Nav"] = "article/nav.html"
 	this.LayoutSections["JS"] = "article/js.html"
+	this.Data["admin"] = true
 
 	idStr := this.Ctx.Input.Param(":id")
 	id, err := strconv.Atoi(idStr)
@@ -30,14 +31,16 @@ func (this *ArticleController) Index() {
 	as, err := models.ArticlesModel().ArticleFromId(id)
 	if nil != err {
 		beego.Error(err)
-		this.Ctx.Output.SetStatus(http.StatusInternalServerError)
-		this.Ctx.Output.Body([]byte(err.Error()))
+		//this.Abort(err.Error())
 		return
 	}
+	this.Data["article"] = as
+	this.Data["id"] = id
 
-	if len(as) != 0 {
-		this.Data["article"] = as[0]
-		this.Data["comments"] = as
-		this.Data["id"] = id
+	cs, err := models.CommentModel().CommentFromArticleId(id)
+	if nil != err {
+		beego.Error(err)
+		//return
 	}
+	this.Data["comments"] = cs
 }

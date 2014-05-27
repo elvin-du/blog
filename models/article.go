@@ -19,18 +19,13 @@ func ArticlesModel() *articles {
 }
 
 func (this *articles) ArticleFromId(id int) ([]orm.Params, error) {
-	o := orm.NewOrm()
-	sqlStr := "SELECT title,excerpt,content,a.ctime a_ctime,comment,ip,c.ctime, nick,site,email FROM articles a LEFT JOIN comments c ON a.id = c.article_id WHERE a.id = " + strconv.Itoa(id)
 	var maps []orm.Params
-	_, err := o.Raw(sqlStr).Values(&maps)
+	_, err := orm.NewOrm().Raw("SELECT * FROM articles WHERE id = ?", id).Values(&maps)
 	if nil != err {
 		beego.Error(err)
 		return nil, err
 	}
-	//beego.Debug(maps)
-	if len(maps) == 0 {
-		return nil, E_NOT_FOUND
-	}
+
 	return maps, nil
 }
 

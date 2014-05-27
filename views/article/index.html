@@ -1,12 +1,14 @@
 <!-- Begin page content -->
 <div class="container">
+	
+	{{range .article}}
 	<div class="page-header">
-		<h4><a href="#">{{.article.title}}</a></h4>
+		<h4><a href="#">{{.title}}</a></h4>
 	</div>
-	<p class="lead">{{str2html .article.excerpt}}{{str2html .article.content}}</p>
-	<small>Macs 发表于 {{ymd .article.a_ctime}}</small>
+	<p class="lead">{{str2html .excerpt}}{{str2html .content}}</p>
+	<small>Macs 发表于 {{ymd .ctime}}</small>
 
-	{{if eq .admin "admin"}}
+	{{if $.admin}}
 	<small><a href="/admin/article/del/{{.id}}">删除</a></small>
 	<small><a href="/admin/article/edit/{{.id}}">编辑</a></small>
 	{{end}}
@@ -14,23 +16,26 @@
 	<hr/>
 	<div style="padding-top:20px;"><h4>文章评论</h4></div>
 	<hr/>
+	{{else}}
+	<p>文章没有找到，亲，请试试刷新一下看看！</p>
+	{{end}}
 
-	{{range $element := .comments}}
+	{{range .comments}}
 	<div class="row">
 		<div class="col-lg-1">
 			<img src="/static/ico/comment_user.ico">
 		</div>
 		<div class="col-lg-10">
-			<strong style="margin:0 0 10px 0;">{{$element.nick}}</strong><br>
-			<small style="margin:15px 0 0 0;">{{ymdhmch $element.ctime}}</small>
+			<strong style="margin:0 0 10px 0;">{{.nick}}</strong><br>
+			<small style="margin:15px 0 0 0;">{{ymdhmch .ctime}}</small>
 		</div>
 		<div class="col-lg-1">
-			<a href="#" onclick="comment_reply({{$element.nick}})">回复</a>
+			<a href="#" onclick="comment_reply({{.nick}})">回复</a>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-11 col-lg-offset-1">
-			{{$element.comment}}<br>
+			{{.comment}}<br>
 		</div>
 	</div>
 	<br>
@@ -38,7 +43,7 @@
 	{{end}}
 
 	<hr/>
-	<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{.id}}" onSubmit="return addComment();">
+	<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{$.id}}" onSubmit="return addComment();">
 		<div class="row">
 			<div class="col-lg-3 col-lg-offset-1">
 				<input type="text" name="nick" class="form-control" placeholder="昵称">

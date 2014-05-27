@@ -25,3 +25,13 @@ func (this *comment) Add(id, comment, ip, nick, site, email string) error {
 	}
 	return nil
 }
+
+func (this *comment) CommentFromArticleId(id int) ([]orm.Params, error) {
+	var maps []orm.Params
+	_, err := orm.NewOrm().Raw("select * from comments where article_id= ?", id).Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return nil, err
+	}
+	return maps, nil
+}

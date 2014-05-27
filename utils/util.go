@@ -33,7 +33,13 @@ func YYYYMMDD(date string) string {
 	return date
 }
 
-func YMDHMCN(date string) string {
+func YMDHMCN(data interface{}) string {
+	date, ok := data.(string)
+	if !ok {
+		beego.Error("cannot convert interface{} to string")
+		return ""
+	}
+
 	feilds := strings.Fields(date)
 	ymd := strings.Split(feilds[0], "-")
 	hms := strings.Split(feilds[1], ":")

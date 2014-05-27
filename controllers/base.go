@@ -19,9 +19,11 @@ func (this *baseController) Prepare() {
 
 func (this *baseController) auth() {
 	if this.validSess() {
-		this.Data["admin"] = "admin"
+		this.Data["admin"] = true
+		beego.Debug("true")
 	} else {
-		this.Data["admin"] = ""
+		this.Data["admin"] = false
+		beego.Debug("false")
 	}
 }
 
