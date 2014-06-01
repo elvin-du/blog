@@ -3,7 +3,6 @@ CREATE DATABASE `blog`;
 USE `blog`;
 
 ################CREATE TABLE#############################
-
 DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins`(
 	`id` int(16) PRIMARY KEY AUTO_INCREMENT,
@@ -34,7 +33,9 @@ CREATE TABLE `articles`(
 	`excerpt` TEXT NOT NULL,
 	`content` TEXT NOT NULL, 
 	`ctime` 	 datetime NOT NULL,
-	`tag_id`	 int(16) DEFAULT 1
+	`tag_id`	 int(16) DEFAULT 1,
+	`read_count` int(64) DEFAULT 0,
+	`comment_count` int(64) DEFAULT 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `comments`;
@@ -71,7 +72,6 @@ CREATE TABLE `read_history`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ######################INSERT##################################
-
 INSERT `admins` VALUES(1,'root', '63a9f0ea7bb98050796b649e85481845');
 INSERT `infos` VALUES(1,'email', 'macs130828@gmail.com');
 INSERT `infos` VALUES(2,'nick', 'Macs.Du');
@@ -84,3 +84,18 @@ INSERT articles(title,excerpt,content,ctime) VALUES(
 	'当你看到这篇的时候，就代表着您网站初始化成功。</br>即将开始您的个人博客之路。',
 	now()
 );
+
+######################TRIGGER##################################
+DELIMITER |
+CREATE TRIGGER read_count_trigger AFTER INSERT ON read_history FOR EACH ROW
+BEGIN
+	UPDATE articles SET read_count = read_count+1 WHERE id = NEW.article_id;
+END|
+DELIMITER ;
+
+DELIMITER |
+CREATE TRIGGER comment_count_trigger AFTER INSERT ON comments FOR EACH ROW
+BEGIN
+	UPDATE articles SET comment_count = comment_count +1 WHERE id = NEW.article_id;
+END|
+DELIMITER ;

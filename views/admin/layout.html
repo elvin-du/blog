@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Macs Blog Admin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Macs">
+	<meta name="description" content="Macs private blog">
+	<link rel="shortcut icon" href="/static/ico/favicon.ico">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/static/css/admin.css">
+</head>
+<body>
+	{{if .logined}}
+	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Macs博客管理后台</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#">您好！Root</a></li>
+					<li><a href="/admin/logout">退出登录</a></li>
+					<li><a href="/" target="_blank">博客首页</a></li>
+				</ul>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</div><!-- /.navbar -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2">
+				<div class="list-group">
+					<a href="/admin/article/add" class="list-group-item">发布文章</a>
+					<a href="/admin/article/list" class="list-group-item">文章列表</a>
+					<a href="/admin/tags" class="list-group-item">标签管理</a>
+					<a href="/admin/about" class="list-group-item">系统设置</a>
+				</div>
+			</div>
+			<div class="col-lg-10">
+				{{.LayoutContent}}
+			</div>
+		</div><!--/row-->
+	</div><!--container -->
+	{{else}}
+	{{.login}}
+	{{end}}
+
+	<script charset="utf-8" src="/static/kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="/static/kindeditor/lang/zh_CN.js"></script>
+
+	<script type="text/javascript" src="/static/js/admin.js"></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

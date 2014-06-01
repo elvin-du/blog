@@ -11,3 +11,12 @@ body {
 .starter-template {
 	padding-top: 80px;
 }
+
+
+#login{
+	padding-top:80px;
+}
+#rememberme{
+	margin-top:8px;
+	margin-bottom:8px;
+}

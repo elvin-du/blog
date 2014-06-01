@@ -39,5 +39,5 @@ func (this *AdminController) Logout() {
 		beego.Error(err)
 	}
 
-	this.Redirect("/", 302)
+	this.Redirect("/admin/login", 302)
 }

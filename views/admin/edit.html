@@ -1,4 +1,3 @@
-<div class="container">
 <form role="form" name="add_form" method="post" action="/admin/article/edit/{{.id}}" onSubmit="return add();">
      <input type="text" name="title" class="form-control" placeholder="标题" value="{{.article.title}}"  autofocus>
      <input type="text" name="tag" class="form-control" placeholder="标签，多个标签请用：分割">
@@ -9,4 +8,3 @@
 	</textarea>
      <button type="submit" class="btn btn-success">发表</button>
 </form>
-</div>

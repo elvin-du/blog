@@ -1,5 +1,4 @@
 {{range $element := .AS}}
-<div class="container">
    <div class="page-header">
     		<h4><a href="/article/{{$element.id}}">{{$element.title}}</a></h4>
    </div>
@@ -9,7 +8,6 @@
 	<small id="date">Macs  发表于 {{ymd $element.ctime}}</small>
 	<small>标签： {{$element.tag}}</small>
 	</div>
-</div>
 {{end}}
 
 

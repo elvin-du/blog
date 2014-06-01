@@ -63,7 +63,7 @@ func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
 	if page > totalPage {
 		return maps, totalPage, nil
 	}
-	sqlStr := "SELECT a.id, title,excerpt, content, ctime, t.tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC LIMIT ?,?"
+	sqlStr := "SELECT a.id, title,excerpt, content, ctime,read_count, tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC LIMIT ?,?"
 	_, err = orm.NewOrm().Raw(sqlStr, (page-1)*num, num).Values(&maps)
 	if nil != err {
 		beego.Error(err)
@@ -100,4 +100,14 @@ func (this *articles) Update(id int, title, content string) error {
 	beego.Debug(content)
 	_, err := orm.NewOrm().Raw("update articles set title=?,excerpt=?, content=? where id = ?", title, excerpt, content, id).Exec()
 	return err
+}
+
+func (this *articles) LogReadHistory(id int, ip string) error {
+	_, err := orm.NewOrm().Raw("Insert read_history(article_id, ip,atime) values(?,?,?)", id, ip, time.Now()).Exec()
+	if nil != err {
+		beego.Error(err)
+		return err
+	}
+
+	return nil
 }

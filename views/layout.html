@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" href="/static/ico/favicon.ico">
 	<!-- Custom styles for this template -->
 	<link href="/static/css/sticky-footer.css" rel="stylesheet">
-	<link href="/static/css/base.css" rel="stylesheet">
+	<link href="/static/css/blog.css" rel="stylesheet">
 	{{.CSS}}
 </head>
 <body>
@@ -37,19 +37,27 @@
 						</div>
 						<button type="submit" class="btn btn-success">搜索</button>
 					</form>
-
-					{{if .admin}}
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/admin/article/add">写文章</a></li>
-						<li><a href="/admin/about">更新关于</a></li>
-						<li><a href="/admin/logout">退出</a></li>
-					</ul>
-					{{end}}
-
 				</div><!--/.nav-collapse -->
 			</div><!--div container-->
 		</nav><!--navbar-->
-		{{.LayoutContent}}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10">
+					{{.LayoutContent}}
+				</div>
+				<div class="col-lg-2">
+					<div class="list-group">
+						<p>HOT!</p>
+						<a href="/admin/article/add" class="list-group-item">发布文章</a>
+						<a href="/admin/article/list" class="list-group-item">文章列表</a>
+						<a href="/admin/tags" class="list-group-item">标签管理</a>
+						<a href="/admin/about" class="list-group-item">系统设置</a>
+					</div>
+				</div>
+				
+			</div><!--/row-->
+		</div><!--container -->
+
 	</div><!--wrap-->
 
 	<div id="footer"><!--footer-->

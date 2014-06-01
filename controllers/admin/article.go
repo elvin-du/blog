@@ -26,7 +26,7 @@ func (this *ArticleController) Add() {
 		this.Abort("insert blog failed")
 	}
 
-	this.Redirect("/", 302)
+	this.Redirect("/admin/article/list", 302)
 }
 
 func (this *ArticleController) Del() {
@@ -42,7 +42,7 @@ func (this *ArticleController) Del() {
 		beego.Error(err) //todo
 	}
 
-	this.Redirect("/", 302)
+	this.Redirect("/admin/article/list", 302)
 }
 
 func (this *ArticleController) EditView() {
@@ -89,4 +89,18 @@ func (this *ArticleController) Edit() {
 	}
 
 	this.Redirect("/", 302)
+}
+
+func (this *ArticleController) List() {
+	this.TplNames = "admin/list.html"
+
+	as, _, err := models.ArticlesModel().Articles(10, 1)
+	if nil != err {
+		beego.Error(err)
+		this.Ctx.Output.SetStatus(http.StatusInternalServerError)
+		this.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	this.Data["list"] = as
 }

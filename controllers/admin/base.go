@@ -14,11 +14,8 @@ type baseController struct {
 }
 
 func (this *baseController) Prepare() {
-	this.Layout = "layout.html"
+	this.Layout = "admin/layout.html"
 	this.LayoutSections = make(map[string]string)
-	this.LayoutSections["Nav"] = "admin/nav.html"
-	this.LayoutSections["CSS"] = "admin/css.html"
-	this.LayoutSections["JS"] = "admin/js.html"
 	this.controllerName, this.actionName = this.GetControllerAndAction()
 	this.auth()
 }
@@ -27,20 +24,23 @@ func (this *baseController) auth() {
 	beego.Debug("autho")
 	switch {
 	case this.controllerName == "AdminController" && this.actionName == "Login":
+	//do nothing
 	case this.controllerName == "AdminController" && this.actionName == "Index":
 		if this.validSess() {
-			this.Data["admin"] = true
+			this.Data["logined"] = true
 			this.Redirect("/admin/article/add", 302)
 			return
 		}
-		this.Data["admin"] = false
+		this.Data["logined"] = false
+		this.LayoutSections["login"] = "admin/login.html"
 	default:
 		if !this.validSess() {
-			this.Data["admin"] = false
+			this.Data["logined"] = false
+			this.LayoutSections["login"] = "admin/login.html"
 			this.Redirect("/admin/login", 302)
 			return
 		}
-		this.Data["admin"] = true
+		this.Data["logined"] = true
 	}
 }
 

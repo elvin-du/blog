@@ -33,5 +33,5 @@ func (this *InfoController) UpdateAbout() {
 		this.Abort("update blog failed")
 	}
 
-	this.Redirect("/about", 302)
+	this.Redirect("/admin/about", 302)
 }
