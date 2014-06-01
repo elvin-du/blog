@@ -7,6 +7,7 @@ const (
 	INFO_MODEL
 	ADMIN_MODEL
 	COMMENT_MODEL
+	VISITOR_MODEL
 )
 
 type Article struct {

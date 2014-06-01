@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog/models"
+	"time"
 
 	"github.com/astaxie/beego"
 )
@@ -14,7 +15,20 @@ type baseController struct {
 
 func (this *baseController) Prepare() {
 	this.Layout = "layout.html"
+	this.VisitorCount()
 	this.auth()
+}
+
+func (this *baseController) VisitorCount() {
+	sess := this.GetSession("macs")
+	if nil == sess {
+		err := models.VisitorModel().Log(this.Ctx.Input.IP(), time.Now())
+		if nil != err {
+			beego.Error(err)
+			this.Abort(err.Error())
+		}
+		this.SetSession("macs", "du")
+	}
 }
 
 func (this *baseController) auth() {
