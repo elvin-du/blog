@@ -1,0 +1,12 @@
+<table class="table table-striped">
+  <tr>
+  	<td>ID</td>
+  	<td>标签名称</td>
+  </tr>
+  {{range .tags}}
+  <tr>
+  	<td>{{.id}}</td>
+  	<td>{{.tag}}</td>
+  </tr>
+  {{end}}
+</table>

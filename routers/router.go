@@ -25,6 +25,7 @@ func init() {
 	beego.Router("/admin/file/del", &admin.FileController{}, "*:Del")
 	beego.Router("/admin/about/update", &admin.InfoController{}, "*:UpdateAbout")
 	beego.Router("/admin/about", &admin.InfoController{}, "*:About")
+	beego.Router("/admin/tags", &admin.TagController{}, "GET:Index")
 
 	//download
 	beego.Router("/dl/*.*", &DownloadController{}, "*:Index")

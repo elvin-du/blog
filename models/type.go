@@ -8,6 +8,7 @@ const (
 	ADMIN_MODEL
 	COMMENT_MODEL
 	VISITOR_MODEL
+	TAG_MODEL
 )
 
 type Article struct {

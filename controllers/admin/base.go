@@ -21,7 +21,6 @@ func (this *baseController) Prepare() {
 }
 
 func (this *baseController) auth() {
-	beego.Debug("autho")
 	switch {
 	case this.controllerName == "AdminController" && this.actionName == "Login":
 	//do nothing
