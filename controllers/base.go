@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog/models"
+	"blog/utils"
 	"time"
 
 	"github.com/astaxie/beego"
@@ -20,6 +21,7 @@ func (this *baseController) Prepare() {
 	this.HotArticles()
 	this.LatestArticles()
 	this.LatestComments()
+	this.Tags()
 }
 
 func (this *baseController) HotArticles() {
@@ -51,6 +53,21 @@ func (this *baseController) LatestComments() {
 	}
 	this.Data["latest_comments"] = latestCS
 }
+
+func (this *baseController) Tags() {
+	tags, err := models.TagModel().Tags()
+	if nil != err {
+		beego.Error(err)
+		this.Abort(err.Error())
+		return
+	}
+
+	for i, _ := range tags {
+		tags[i]["font_size"] = utils.Rand(8, 22)
+	}
+	this.Data["tags"] = tags
+}
+
 func (this *baseController) VisitorCount() {
 	sess := this.GetSession("macs")
 	if nil == sess {

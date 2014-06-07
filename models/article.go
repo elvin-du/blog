@@ -3,6 +3,7 @@ package models
 import (
 	"blog/utils"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/astaxie/beego"
@@ -91,10 +92,14 @@ func (this *articles) Add(title, content string, tags []string) error {
 	}
 
 	var ts = []string{}
-	if tags[0] == "" {
+	if len(tags) == 0 {
 		ts = append(ts, "其他")
 	} else {
-		ts = tags
+		if tags[0] == "" {
+			ts = append(ts, "其他")
+		} else {
+			ts = tags
+		}
 	}
 
 	for _, v := range ts {
@@ -211,4 +216,30 @@ func (this *articles) Tags(id int64) ([]string, error) {
 	}
 
 	return tags, nil
+}
+
+func (this *articles) ArticlesFromTagId(id int64) ([]orm.Params, error) {
+	var maps []orm.Params
+	_, err := orm.NewOrm().Raw("select * from article_tag_relation where tag_id=?", id).Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return maps, err
+
+	}
+
+	var in []string
+	for _, v := range maps {
+		in = append(in, v["article_id"].(string))
+	}
+	sqlIn := strings.Join(in, ",")
+	sqlStr := "select * from articles where id in(" + sqlIn + ")"
+	beego.Debug("sql:", sqlStr)
+	var maps2 []orm.Params
+	_, err = orm.NewOrm().Raw(sqlStr).Values(&maps2)
+	if nil != err {
+		beego.Error(err)
+		return maps, err
+
+	}
+	return maps2, nil
 }

@@ -18,7 +18,7 @@ const (
 
 func ExcerptContent(in string) (excerpt, content string) {
 	i := strings.Index(in, C_EXCERPT_TAG)
-	beego.Debug(i)
+
 	if -1 != i {
 		return in[:i], in[i+len(C_EXCERPT_TAG):]
 	}
@@ -63,4 +63,18 @@ func UUID() string {
 		return "abkjlj;lkjl;kjfdaslkjf;lkajsdf;kdasjfal;"
 	}
 	return hex.EncodeToString(h.Sum(nil))
+}
+
+func Rand(min, max int64) int64 {
+	for {
+		rand.Seed(time.Now().UnixNano())
+		r := rand.Int63n(max)
+		if r < min {
+			rand.Seed(time.Now().UnixNano())
+			r := rand.Int63n(max)
+			if r >= min {
+				return r
+			}
+		}
+	}
 }

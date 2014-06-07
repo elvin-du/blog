@@ -12,6 +12,7 @@ func init() {
 	beego.Router("/article/page/:page:int", &MainController{}, "GET:Index")
 	beego.Router("/about", &InfoController{}, "GET:About")
 	beego.Router("/article/:id:int", &ArticleController{}, "GET:Index")
+	beego.Router("/article/tag/:id:int", &ArticleController{}, "GET:Tag")
 	beego.Router("/comment/:id:int", &CommentController{}, "POST:Add")
 
 	//admin

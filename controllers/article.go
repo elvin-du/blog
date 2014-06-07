@@ -49,3 +49,33 @@ func (this *ArticleController) Index() {
 	}
 	this.Data["comments"] = cs
 }
+
+func (this *ArticleController) Tag() {
+	idStr := this.Ctx.Input.Param(":id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if nil != err {
+		beego.Error(err)
+		this.Ctx.Output.SetStatus(http.StatusBadRequest)
+		this.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	as, err := models.ArticlesModel().ArticlesFromTagId(id)
+	if nil != err {
+		beego.Error(err)
+		this.Ctx.Output.SetStatus(http.StatusBadRequest)
+		this.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	this.TplNames = "main/index.html"
+	this.LayoutSections = make(map[string]string)
+	this.LayoutSections["Nav"] = "main/nav.html"
+
+	this.Data["AS"] = as
+	this.Data["total"] = 1
+	this.Data["cur_page"] = 1
+	this.Data["pre_page"] = 0
+	this.Data["next_page"] = 0
+	this.Data["pagination"] = ""
+}

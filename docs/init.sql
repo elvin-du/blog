@@ -78,16 +78,6 @@ CREATE TABLE `read_history`(
 	`atime` datetime NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-######################INSERT##################################
-INSERT `admins` VALUES(1,'root', '63a9f0ea7bb98050796b649e85481845');
-INSERT `infos` VALUES(1,'email', 'macs130828@gmail.com');
-INSERT `infos` VALUES(2,'nick', 'Macs.Du');
-INSERT `infos` VALUES(3,'about', 
-	'本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，
-	请移步<a href="https://github.com/macs-du/blog" target="_blank">GitHub</a>'
-	);
-INSERT `tags` VALUES(1,'其他',0);
-
 ######################TRIGGER##################################
 DELIMITER |
 CREATE TRIGGER read_count_trigger AFTER INSERT ON read_history FOR EACH ROW
@@ -109,3 +99,22 @@ BEGIN
 UPDATE tags SET count=count+1 WHERE id=NEW.tag_id;
 END|
 DELIMITER ;
+
+######################INSERT##################################
+INSERT `admins` VALUES(1,'root', '63a9f0ea7bb98050796b649e85481845');
+INSERT `infos` VALUES(1,'email', 'macs130828@gmail.com');
+INSERT `infos` VALUES(2,'nick', 'Macs.Du');
+INSERT `infos` VALUES(3,'about', 
+	'本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，
+	请移步<a href="https://github.com/macs-du/blog" target="_blank">GitHub</a>'
+	);
+INSERT `tags` VALUES(1,'其他',0);
+INSERT `articles` VALUES(
+	1,
+	'博客上线咯',
+	'从此时起，Macs博客正式上线咯',
+	'从此时起，Macs博客正式上线咯,历经几个月',
+	now(),0,0	
+);
+INSERT `article_tag_relation` VALUES(1,1,1);
+
