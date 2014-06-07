@@ -17,8 +17,40 @@ func (this *baseController) Prepare() {
 	this.Layout = "layout.html"
 	this.VisitorCount()
 	this.auth()
+	this.HotArticles()
+	this.LatestArticles()
+	this.LatestComments()
 }
 
+func (this *baseController) HotArticles() {
+	hotAS, err := models.ArticlesModel().Hot()
+	if nil != err {
+		beego.Error(err)
+		this.Abort(err.Error())
+		return
+	}
+	this.Data["hot_articles"] = hotAS
+}
+
+func (this *baseController) LatestArticles() {
+	latestAS, err := models.ArticlesModel().Latest()
+	if nil != err {
+		beego.Error(err)
+		this.Abort(err.Error())
+		return
+	}
+	this.Data["latest_articles"] = latestAS
+}
+
+func (this *baseController) LatestComments() {
+	latestCS, err := models.CommentModel().Latest()
+	if nil != err {
+		beego.Error(err)
+		this.Abort(err.Error())
+		return
+	}
+	this.Data["latest_comments"] = latestCS
+}
 func (this *baseController) VisitorCount() {
 	sess := this.GetSession("macs")
 	if nil == sess {

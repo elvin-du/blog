@@ -32,7 +32,6 @@ func (this *ArticleController) Index() {
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["Nav"] = "article/nav.html"
 	this.LayoutSections["JS"] = "article/js.html"
-	this.Data["admin"] = true
 
 	as, err := models.ArticlesModel().ArticleFromId(id)
 	if nil != err {

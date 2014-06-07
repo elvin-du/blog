@@ -111,3 +111,25 @@ func (this *articles) LogReadHistory(id int, ip string) error {
 
 	return nil
 }
+
+func (this *articles) Hot() ([]orm.Params, error) {
+	var maps []orm.Params
+	_, err := orm.NewOrm().Raw("select * from articles order by read_count desc limit 10").Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return maps, err
+
+	}
+	return maps, nil
+}
+
+func (this *articles) Latest() ([]orm.Params, error) {
+	var maps []orm.Params
+	_, err := orm.NewOrm().Raw("select * from articles order by ctime desc limit 10").Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return maps, err
+
+	}
+	return maps, nil
+}

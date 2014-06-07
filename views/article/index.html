@@ -1,66 +1,59 @@
 <!-- Begin page content -->
-<div class="container">
-	
-	{{range .article}}
-	<div class="page-header">
-		<h4><a href="#">{{.title}}</a></h4>
+{{range .article}}
+<div class="page-header">
+	<h4><a href="#">{{.title}}</a></h4>
+</div>
+<p class="lead">{{str2html .excerpt}}{{str2html .content}}</p>
+<small>Macs 发表于 {{ymd .ctime}}</small>
+
+<hr/>
+<div style="padding-top:20px;"><h4>文章评论</h4></div>
+<hr/>
+
+{{range $c:= $.comments}}
+<div class="row">
+	<div class="col-lg-1">
+		<img src="/static/ico/comment_user.ico">
 	</div>
-	<p class="lead">{{str2html .excerpt}}{{str2html .content}}</p>
-	<small>Macs 发表于 {{ymd .ctime}}</small>
+	<div class="col-lg-10">
+		<strong style="margin:0 0 10px 0;">{{$c.nick}}</strong><br>
+		<small style="margin:15px 0 0 0;">{{ymdhmch $c.ctime}}</small>
+	</div>
+	<div class="col-lg-1">
+		<a href="#" onclick="comment_reply({{.nick}})">回复</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-11 col-lg-offset-1" >
+		<a name="{{$c.id}}"></a>{{$c.comment}}<br>
+	</div>
+</div>
+<br>
+<br>
+{{end}}
 
-	{{if $.admin}}
-	<small><a href="/admin/article/del/{{.id}}">删除</a></small>
-	<small><a href="/admin/article/edit/{{.id}}">编辑</a></small>
-	{{end}}
-
-	<hr/>
-	<div style="padding-top:20px;"><h4>文章评论</h4></div>
-	<hr/>
-	{{else}}
-	<p>文章没有找到，亲，请试试刷新一下看看！</p>
-	{{end}}
-
-	{{range .comments}}
+<hr/>
+<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{$.id}}" onSubmit="return addComment();">
 	<div class="row">
-		<div class="col-lg-1">
-			<img src="/static/ico/comment_user.ico">
-		</div>
-		<div class="col-lg-10">
-			<strong style="margin:0 0 10px 0;">{{.nick}}</strong><br>
-			<small style="margin:15px 0 0 0;">{{ymdhmch .ctime}}</small>
-		</div>
-		<div class="col-lg-1">
-			<a href="#" onclick="comment_reply({{.nick}})">回复</a>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-11 col-lg-offset-1">
-			{{.comment}}<br>
-		</div>
-	</div>
-	<br>
-	<br>
-	{{end}}
+		<div class="col-lg-3 col-lg-offset-1">
+			<input type="text" name="nick" class="form-control" placeholder="昵称">
+			<input type="text" name="email" class="form-control" placeholder="邮箱">
+			<input type="text" name="site" class="form-control" placeholder="网站">
+		</div><!-- /.col-lg-3 -->
 
-	<hr/>
-	<form class="form-horizontal" role="form" name="comment_form" method="POST" action="/comment/{{$.id}}" onSubmit="return addComment();">
-		<div class="row">
-			<div class="col-lg-3 col-lg-offset-1">
-				<input type="text" name="nick" class="form-control" placeholder="昵称">
-				<input type="text" name="email" class="form-control" placeholder="邮箱">
-				<input type="text" name="site" class="form-control" placeholder="网站">
-			</div><!-- /.col-lg-3 -->
-
-			<div class="col-lg-7">
-				<textarea id="cmt" name="comment" class="form-control" rows="7" placeholder="评论"></textarea>
-				<div style="margin-top:10px;">
-					<div class="row">
-						<div class="col-lg-3">
-							<button class="btn btn-success btn-block" type="submit">发布</button>
-						</div>
+		<div class="col-lg-7">
+			<textarea id="cmt" name="comment" class="form-control" rows="7" placeholder="评论"></textarea>
+			<div style="margin-top:10px;">
+				<div class="row">
+					<div class="col-lg-3">
+						<button class="btn btn-success btn-block" type="submit">发布</button>
 					</div>
 				</div>
 			</div>
-		</div><!-- /.row -->
-	</from>
-</div>
+		</div>
+	</div><!-- /.row -->
+</from>
+{{else}}
+<p>文章没有找到，亲，请试试刷新一下看看！</p>
+{{end}}
+

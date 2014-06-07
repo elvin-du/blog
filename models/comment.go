@@ -35,3 +35,13 @@ func (this *comment) CommentFromArticleId(id int) ([]orm.Params, error) {
 	}
 	return maps, nil
 }
+
+func (this *comment) Latest() ([]orm.Params, error) {
+	var maps []orm.Params
+	_, err := orm.NewOrm().Raw("select * from comments order by ctime desc limit 10").Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return maps, err
+	}
+	return maps, nil
+}
