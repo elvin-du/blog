@@ -25,7 +25,6 @@ func (this *info) InfoFromName(name string) ([]orm.Params, error) {
 		return nil, err
 	}
 
-	beego.Debug(maps)
 	if len(maps) == 0 {
 		return nil, E_NOT_FOUND
 	}

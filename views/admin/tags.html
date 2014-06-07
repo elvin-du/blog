@@ -1,12 +1,14 @@
 <table class="table table-striped">
   <tr>
   	<td>ID</td>
-  	<td>标签名称</td>
+    <td>标签名称</td>
+  	<td>文章数量</td>
   </tr>
   {{range .tags}}
   <tr>
   	<td>{{.id}}</td>
-  	<td>{{.tag}}</td>
+    <td><a href="{{.url}}">{{.tag}}</a></td>
+  	<td>{{.count}}</td>
   </tr>
   {{end}}
 </table>

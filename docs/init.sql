@@ -33,7 +33,6 @@ CREATE TABLE `articles`(
 	`excerpt` TEXT NOT NULL,
 	`content` TEXT NOT NULL, 
 	`ctime` 	 datetime NOT NULL,
-	`tag_id`	 int(16) DEFAULT 1,
 	`read_count` int(64) DEFAULT 0,
 	`comment_count` int(64) DEFAULT 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -53,7 +52,15 @@ CREATE TABLE `comments`(
 DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags`(
 	`id`  int(16) PRIMARY KEY AUTO_INCREMENT, 
-	`tag` VARCHAR(512) NOT NULL
+	`tag` VARCHAR(32) NOT NULL UNIQUE,
+	`count` int(64) DEFAULT 0
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `article_tag_relation`;
+CREATE TABLE `article_tag_relation`(
+	`id` int(16) PRIMARY KEY AUTO_INCREMENT,
+	`tag_id` int(16) NOT NULL,
+	`article_id` int(16) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `visitors`;
@@ -76,26 +83,29 @@ INSERT `admins` VALUES(1,'root', '63a9f0ea7bb98050796b649e85481845');
 INSERT `infos` VALUES(1,'email', 'macs130828@gmail.com');
 INSERT `infos` VALUES(2,'nick', 'Macs.Du');
 INSERT `infos` VALUES(3,'about', 
-'本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，请移步<a href="https://github.com/macs-du/blog" target="_blank">GitHub</a>');
-INSERT `tags`(id, tag) VALUES(1,'原创');
-INSERT articles(title,excerpt,content,ctime) VALUES(
-	"网站初始化成功",
-	'当你看到这篇的时候，就代表着您网站初始化成功',
-	'当你看到这篇的时候，就代表着您网站初始化成功。</br>即将开始您的个人博客之路。',
-	now()
-);
+	'本网站是为了学习golang和网站开发所建成的，纯属娱乐之用，如果你也喜欢本网站，
+	请移步<a href="https://github.com/macs-du/blog" target="_blank">GitHub</a>'
+	);
+INSERT `tags` VALUES(1,'其他',0);
 
 ######################TRIGGER##################################
 DELIMITER |
 CREATE TRIGGER read_count_trigger AFTER INSERT ON read_history FOR EACH ROW
 BEGIN
-	UPDATE articles SET read_count = read_count+1 WHERE id = NEW.article_id;
+UPDATE articles SET read_count = read_count+1 WHERE id = NEW.article_id;
 END|
 DELIMITER ;
 
 DELIMITER |
 CREATE TRIGGER comment_count_trigger AFTER INSERT ON comments FOR EACH ROW
 BEGIN
-	UPDATE articles SET comment_count = comment_count +1 WHERE id = NEW.article_id;
+UPDATE articles SET comment_count = comment_count +1 WHERE id = NEW.article_id;
+END|
+DELIMITER ;
+
+DELIMITER |
+CREATE TRIGGER article_tag_relation_trigger AFTER INSERT ON article_tag_relation FOR EACH ROW
+BEGIN
+UPDATE tags SET count=count+1 WHERE id=NEW.tag_id;
 END|
 DELIMITER ;

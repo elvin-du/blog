@@ -66,7 +66,6 @@ func (this *baseController) VisitorCount() {
 func (this *baseController) auth() {
 	if this.validSess() {
 		this.Data["admin"] = true
-		beego.Debug("true")
 	} else {
 		this.Data["admin"] = false
 		beego.Debug("false")

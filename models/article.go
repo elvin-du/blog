@@ -37,7 +37,6 @@ func (this *articles) Count() (int64, error) {
 		beego.Error(err)
 		return 0, err
 	}
-	beego.Debug(maps)
 
 	totalStr := maps[0]["count(*)"].(string)
 	total, err := strconv.ParseInt(totalStr, 10, 64)
@@ -63,7 +62,7 @@ func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
 	if page > totalPage {
 		return maps, totalPage, nil
 	}
-	sqlStr := "SELECT a.id, title,excerpt, content, ctime,read_count, tag FROM articles a LEFT JOIN tags t ON a.tag_id = t.id ORDER BY ctime DESC LIMIT ?,?"
+	sqlStr := "SELECT * FROM articles ORDER BY ctime DESC LIMIT ?,?"
 	_, err = orm.NewOrm().Raw(sqlStr, (page-1)*num, num).Values(&maps)
 	if nil != err {
 		beego.Error(err)
@@ -76,16 +75,64 @@ func (this *articles) Articles(num, page int64) ([]orm.Params, int64, error) {
 	return maps, totalPage, nil
 }
 
-func (this *articles) Add(title, content string) error {
+func (this *articles) Add(title, content string, tags []string) error {
 	excerpt, content := utils.ExcerptContent(content)
-	beego.Debug(excerpt)
-	beego.Debug(content)
 	o := orm.NewOrm()
-	_, err := o.Raw("insert articles(title,excerpt,content, ctime) values(?,?,?,?)", title, excerpt, content, time.Now()).Exec()
+	result, err := o.Raw("insert articles(title,excerpt,content, ctime) values(?,?,?,?)", title, excerpt, content, time.Now()).Exec()
 	if nil != err {
 		beego.Error(err)
 		return err
 	}
+
+	articleId, err := result.LastInsertId()
+	if nil != err {
+		beego.Error(err)
+		return err
+	}
+
+	var ts = []string{}
+	if tags[0] == "" {
+		ts = append(ts, "其他")
+	} else {
+		ts = tags
+	}
+
+	for _, v := range ts {
+		var maps []orm.Params
+		_, err := orm.NewOrm().Raw("select id from tags where tag=?", v).Values(&maps)
+		if nil != err {
+			beego.Error(err)
+			return err
+		}
+
+		var tagId int64 = 0
+		if 0 == len(maps) {
+			result, err = orm.NewOrm().Raw("insert tags(tag) values(?)", v).Exec()
+			if nil != err {
+				beego.Error(err)
+				return err
+			}
+			tagId, err = result.LastInsertId()
+			if nil != err {
+				beego.Error(err)
+				return err
+			}
+		} else {
+			tagIdStr := maps[0]["id"].(string)
+			tagId, err = strconv.ParseInt(tagIdStr, 10, 64)
+			if nil != err {
+				beego.Error(err)
+				return err
+			}
+		}
+
+		_, err = orm.NewOrm().Raw("insert article_tag_relation(article_id,tag_id) values(?,?)", articleId, tagId).Exec()
+		if nil != err {
+			beego.Error(err)
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -132,4 +179,36 @@ func (this *articles) Latest() ([]orm.Params, error) {
 
 	}
 	return maps, nil
+}
+
+func (this *articles) Tags(id int64) ([]string, error) {
+	var tags = []string{}
+
+	var maps []orm.Params
+	_, err := orm.NewOrm().Raw("select tag_id from article_tag_relation where article_id=?", id).Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return tags, err
+	}
+
+	for _, v := range maps {
+		idStr := v["tag_id"].(string)
+		tag_id, err := strconv.ParseInt(idStr, 10, 64)
+		if nil != err {
+			beego.Error(err)
+			return tags, err
+		}
+
+		var maps2 = []orm.Params{}
+		_, err = orm.NewOrm().Raw("select tag from tags where id=?", tag_id).Values(&maps2)
+		if nil != err {
+			beego.Error(err)
+			return tags, err
+		}
+		if 0 != len(maps2) {
+			tags = append(tags, maps2[0]["tag"].(string))
+		}
+	}
+
+	return tags, nil
 }

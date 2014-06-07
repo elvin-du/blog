@@ -5,6 +5,7 @@ import (
 	"blog/utils"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -20,8 +21,10 @@ func (this *ArticleController) AddView() {
 func (this *ArticleController) Add() {
 	title := this.GetString("title")
 	content := this.GetString("content")
+	tagStr := this.GetString("tags")
+	tags := strings.Fields(tagStr)
 
-	err := models.ArticlesModel().Add(title, content)
+	err := models.ArticlesModel().Add(title, content, tags)
 	if nil != err {
 		this.Abort("insert blog failed")
 	}
@@ -100,6 +103,22 @@ func (this *ArticleController) List() {
 		this.Ctx.Output.SetStatus(http.StatusInternalServerError)
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
+	}
+
+	for i, a := range as {
+		idStr := a["id"].(string)
+		id, err := strconv.ParseInt(idStr, 10, 64)
+		if nil != err {
+			beego.Error(err)
+			return
+		}
+		tags, err := models.ArticlesModel().Tags(id)
+		if nil != err {
+			beego.Error(err)
+			return
+		}
+
+		as[i]["tags"] = strings.Join(tags, " ")
 	}
 
 	this.Data["list"] = as
