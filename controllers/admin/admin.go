@@ -12,7 +12,6 @@ type AdminController struct {
 }
 
 func (this *AdminController) Index() {
-	beego.Debug("heerer")
 	this.TplNames = "admin/login.html"
 }
 
