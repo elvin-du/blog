@@ -35,7 +35,7 @@ func (this *admin) Login(name, passwd string) (string, error) {
 		beego.Error(err)
 		return "", err
 	}
-
+	beego.Debug("maps:", maps)
 	if len(maps) < 1 {
 		beego.Debug("not found")
 		return "", E_NOT_FOUND
