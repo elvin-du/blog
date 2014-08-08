@@ -36,12 +36,3 @@ KindEditor.ready(function(K) {
 		uploadJson : '/admin/file/upload',
 	});
 });
-
-function search_check(){
-	var key = $(div#key).val()
-	if key.length == 0{
-		alert("搜索内容为空");
-		return false;
-	}
-	return true;
-};
