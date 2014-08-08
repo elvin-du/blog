@@ -85,7 +85,6 @@ func (this *baseController) auth() {
 		this.Data["admin"] = true
 	} else {
 		this.Data["admin"] = false
-		beego.Debug("false")
 	}
 }
 

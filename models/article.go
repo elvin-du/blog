@@ -243,3 +243,16 @@ func (this *articles) ArticlesFromTagId(id int64) ([]orm.Params, error) {
 	}
 	return maps2, nil
 }
+
+func (this *articles) Search(key string) ([]orm.Params, error) {
+	var maps []orm.Params
+	sqlStr := `SELECT * FROM articles WHERE CONCAT(UPPER(excerpt),UPPER(content)) LIKE BINARY CONCAT('%',UPPER('` + key + `'),'%')`
+	beego.Debug("sql:", sqlStr)
+	_, err := orm.NewOrm().Raw(sqlStr).Values(&maps)
+	if nil != err {
+		beego.Error(err)
+		return nil, err
+	}
+
+	return maps, nil
+}
